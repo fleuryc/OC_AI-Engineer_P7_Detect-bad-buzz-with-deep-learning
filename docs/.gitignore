@@ -1,0 +1,4 @@
+# Add documentation files in this directory.
+# This is supposed to be hosted as a GitHup Page (https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
+# Remove this directory there is no documentation.
+!.gitignore

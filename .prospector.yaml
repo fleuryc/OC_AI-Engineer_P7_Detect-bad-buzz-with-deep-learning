@@ -1,0 +1,3 @@
+pep257:
+  disable:
+    - D213 # https://stackoverflow.com/a/45990465/1415232
