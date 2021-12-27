@@ -1,7 +1,7 @@
-[![Python application](https://github.com/fleuryc/Template-Python/actions/workflows/python-app.yml/badge.svg)](https://github.com/fleuryc/Template-Python/actions/workflows/python-app.yml)
-[![CodeQL](https://github.com/fleuryc/Template-Python/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/fleuryc/Template-Python/actions/workflows/codeql-analysis.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b03fbc514ea44fce83fe471896566cfd)](https://www.codacy.com/gh/fleuryc/Template-Python/dashboard)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/b03fbc514ea44fce83fe471896566cfd)](https://www.codacy.com/gh/fleuryc/Template-Python/dashboard)
+[![Python application](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/actions/workflows/python-app.yml/badge.svg)](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/actions/workflows/python-app.yml)
+[![CodeQL](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/actions/workflows/codeql-analysis.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
 
 - [Project](#project)
   - [Installation](#installation)
