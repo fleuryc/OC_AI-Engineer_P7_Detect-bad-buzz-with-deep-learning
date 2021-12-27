@@ -3,9 +3,7 @@ import logging
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
-import numpy
 import numpy as np
-import pandas
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as graph_objects
@@ -67,7 +65,7 @@ def _to_human_readable(text: str):
 
 
 def _prepare_labels(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     labels: List[Optional[str]],
     replace_nones: Union[bool, List[bool]] = True,
 ):
@@ -95,7 +93,7 @@ def _prepare_labels(
 
 
 def box_and_whisker(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     label_x: Optional[str] = None,
     label_y: Optional[str] = None,
     label_x2: Optional[str] = None,
@@ -142,7 +140,7 @@ def box_and_whisker(
 
 
 def histogram(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     label_x: Optional[str] = None,
     label_y: Optional[str] = None,
     label_colour: Optional[str] = None,
@@ -204,7 +202,7 @@ def histogram(
 
 
 def multiple_histogram(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     label_x: str,
     label_group: str,
     label_y: Optional[str] = None,
@@ -318,14 +316,14 @@ def line_2D(
     if isinstance(trendline, tuple):
         trendline = [trendline]
 
-    x = numpy.array([])
-    y = numpy.array([])
+    x = np.array([])
+    y = np.array([])
 
     if len(x_range) == 2:
-        x_vals = numpy.linspace(x_range[0], x_range[1], num=200)
+        x_vals = np.linspace(x_range[0], x_range[1], num=200)
     else:
         # X-range is interpreted as x_vals
-        x_vals = numpy.array(x_range)
+        x_vals = np.array(x_range)
         x_vals.sort()
 
         # Rewrite x_range to actually be an x-axis range
@@ -336,22 +334,22 @@ def line_2D(
     if isinstance(trendline, dict):
         for cur in trendline.items():
             name = cur[0]
-            x = numpy.concatenate([x, x_vals])
+            x = np.concatenate([x, x_vals])
             names = names + ([name] * len(x_vals))
-            y = numpy.concatenate([y, cur[1]])
+            y = np.concatenate([y, cur[1]])
     else:
         for cur in trendline:  # type: ignore
             name = cur[0]
-            x = numpy.concatenate([x, x_vals])
+            x = np.concatenate([x, x_vals])
             names = names + ([name] * len(x_vals))
-            y = numpy.concatenate([y, cur[1](x=x_vals)])  # type: ignore
+            y = np.concatenate([y, cur[1](x=x_vals)])  # type: ignore
 
     data = dict()
     data[label_x] = x
     data[label_y] = y
     data[legend_title] = names  # type: ignore
 
-    df = pandas.DataFrame(data)
+    df = pd.DataFrame(data)
 
     # Pick a title if none provided and we only have one function
     if (title is None) and (len(trendline) == 1):
@@ -374,7 +372,7 @@ def line_2D(
 
 
 def scatter_2D(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     label_x: Optional[str] = None,
     label_y: Optional[str] = None,
     label_colour: Optional[str] = None,
@@ -442,7 +440,7 @@ def scatter_2D(
             trendline = [trendline]  # type: ignore
         x_min = min(df[selected_columns[0]]) if x_range is None else x_range[0]
         x_max = max(df[selected_columns[0]]) if x_range is None else x_range[1]
-        evaluate_for = numpy.linspace(x_min, x_max, num=200)
+        evaluate_for = np.linspace(x_min, x_max, num=200)
         shapes = []
         for t, colour in zip(trendline, colours_trendline):  # type: ignore
             y_vals = t(evaluate_for)
@@ -468,7 +466,7 @@ def scatter_2D(
 
 
 def scatter_3D(
-    df: pandas.DataFrame,
+    df: pd.DataFrame,
     label_x: Optional[str] = None,
     label_y: Optional[str] = None,
     label_z: Optional[str] = None,
@@ -562,7 +560,7 @@ def surface(
     # though this appears to be counter to the documentation.
     # If z is indexed [x, y] the result is flipped.
     # Potentially there is a bug here somewhere causing this issue or in plotly itself
-    z = numpy.zeros((y_values.shape[0], x_values.shape[0]))
+    z = np.zeros((y_values.shape[0], x_values.shape[0]))
     for i_x in range(x_values.shape[0]):
         for i_y in range(y_values.shape[0]):
             z[i_y, i_x] = calc_z(x_values[i_x], y_values[i_y])
@@ -589,7 +587,7 @@ def surface(
     return fig
 
 
-def model_to_surface_plot(model, plot_features: List[str], data: pandas.DataFrame):
+def model_to_surface_plot(model, plot_features: List[str], data: pd.DataFrame):
     """Plots two features of a model as a surface. Other values are set at their means
 
     model:          A model that accepts a dataframe for prediction
@@ -602,11 +600,11 @@ def model_to_surface_plot(model, plot_features: List[str], data: pandas.DataFram
 
     other_features = [f for f in data.columns if f not in plot_features]
 
-    means = numpy.average(data[other_features], axis=0)
-    mins = numpy.min(data[plot_features], axis=0)
-    maxes = numpy.max(data[plot_features], axis=0)
+    means = np.average(data[other_features], axis=0)
+    mins = np.min(data[plot_features], axis=0)
+    maxes = np.max(data[plot_features], axis=0)
 
-    df = pandas.DataFrame()
+    df = pd.DataFrame()
 
     for f, m in zip(other_features, means):
         df[f] = [m]
@@ -621,12 +619,8 @@ def model_to_surface_plot(model, plot_features: List[str], data: pandas.DataFram
         return model.predict(df)
 
     # Create a 3d plot of predictions
-    x_vals = numpy.array(
-        numpy.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20)
-    )
-    y_vals = numpy.array(
-        numpy.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20)
-    )
+    x_vals = np.array(np.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20))
+    y_vals = np.array(np.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20))
 
     return surface(
         x_vals,
