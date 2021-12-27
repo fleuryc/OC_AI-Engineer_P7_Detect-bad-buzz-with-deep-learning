@@ -331,7 +331,7 @@ def line_2D(
         # Rewrite x_range to actually be an x-axis range
         x_range = [x_vals[0], x_vals[-1]]
 
-    names = []
+    names = []  # type: ignore
 
     if isinstance(trendline, dict):
         for cur in trendline.items():
@@ -340,22 +340,22 @@ def line_2D(
             names = names + ([name] * len(x_vals))
             y = numpy.concatenate([y, cur[1]])
     else:
-        for cur in trendline:
+        for cur in trendline:  # type: ignore
             name = cur[0]
             x = numpy.concatenate([x, x_vals])
             names = names + ([name] * len(x_vals))
-            y = numpy.concatenate([y, cur[1](x=x_vals)])
+            y = numpy.concatenate([y, cur[1](x=x_vals)])  # type: ignore
 
     data = dict()
     data[label_x] = x
     data[label_y] = y
-    data[legend_title] = names
+    data[legend_title] = names  # type: ignore
 
     df = pandas.DataFrame(data)
 
     # Pick a title if none provided and we only have one function
     if (title is None) and (len(trendline) == 1):
-        title = trendline[0][0]
+        title = trendline[0][0]  # type: ignore
 
     # Create as a 2d scatter but with lines
     fig = scatter_2D(
@@ -438,13 +438,13 @@ def scatter_2D(
 
     # Create trendlines
     if trendline is not None:
-        if isinstance(trendline, Callable):
-            trendline = [trendline]
+        if isinstance(trendline, Callable):  # type: ignore
+            trendline = [trendline]  # type: ignore
         x_min = min(df[selected_columns[0]]) if x_range is None else x_range[0]
         x_max = max(df[selected_columns[0]]) if x_range is None else x_range[1]
         evaluate_for = numpy.linspace(x_min, x_max, num=200)
         shapes = []
-        for t, colour in zip(trendline, colours_trendline):
+        for t, colour in zip(trendline, colours_trendline):  # type: ignore
             y_vals = t(evaluate_for)
             path = "M" + " L ".join(
                 [str(c[0]) + " " + str(c[1]) for c in zip(evaluate_for, y_vals)]
