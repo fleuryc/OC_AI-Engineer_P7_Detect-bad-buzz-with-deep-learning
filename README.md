@@ -3,6 +3,8 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
 
+<!--lint disable-->
+
 - [Project](#project)
   - [Installation](#installation)
     - [Prerequisites](#prerequisites)
@@ -13,21 +15,23 @@
     - [Quality Assurance](#quality-assurance)
   - [Troubleshooting](#troubleshooting)
 
-* * *
+---
+
+<!--lint enable-->
 
 # Project
 
--   What ?
--   Why ?
--   How ?
+- What ?
+- Why ?
+- How ?
 
 ## Installation
 
 ### Prerequisites
 
--   environment variables
--   external programs
--   compatible versions
+- environment variables
+- external programs
+- compatible versions
 
 ### Virtual environment
 
@@ -50,7 +54,7 @@ make install
 
 ### Run
 
--   execution instructions
+- execution instructions
 
 ### Quality Assurance
 
@@ -67,5 +71,5 @@ make qa
 
 ## Troubleshooting
 
--   known issues
--   how to fix them
+- known issues
+- how to fix them
