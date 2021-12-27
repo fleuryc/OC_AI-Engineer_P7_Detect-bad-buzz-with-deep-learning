@@ -8,9 +8,11 @@
         -   [Prerequisites](#prerequisites)
         -   [Virtual environment](#virtual-environment)
         -   [Dependencies](#dependencies)
+
     -   [Usage](#usage)
         -   [Run](#run)
         -   [Quality Assurance](#quality-assurance)
+
     -   [Troubleshooting](#troubleshooting)
 
 * * *

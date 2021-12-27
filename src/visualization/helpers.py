@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as graph_objects
+import plotly.graph_objects as go
 import plotly.io as pio
 from numpy import exp
 from numpy.core.fromnumeric import repeat, shape  # noqa: F401,W0611
@@ -21,8 +21,8 @@ from sklearn.metrics import (
 )
 
 # Set the default theme
-template = graph_objects.layout.Template()
-template.layout = graph_objects.Layout(
+template = go.layout.Template()
+template.layout = go.Layout(
     title_x=0.5,
     # border width and size
     margin=dict(l=2, r=2, b=2, t=30),
@@ -40,11 +40,11 @@ template.layout = graph_objects.Layout(
     scene_camera=dict(eye=dict(x=1.5, y=1.5, z=0.1)),
 )
 
-template.data.scatter = [graph_objects.Scatter(marker=dict(opacity=0.8))]
-template.data.scatter3d = [graph_objects.Scatter3d(marker=dict(opacity=0.8))]
-template.data.surface = [graph_objects.Surface()]
-template.data.histogram = [graph_objects.Histogram(marker=dict(line=dict(width=1)))]
-template.data.box = [graph_objects.Box(boxpoints="outliers", notched=False)]
+template.data.scatter = [go.Scatter(marker=dict(opacity=0.8))]
+template.data.scatter3d = [go.Scatter3d(marker=dict(opacity=0.8))]
+template.data.surface = [go.Surface()]
+template.data.histogram = [go.Histogram(marker=dict(line=dict(width=1)))]
+template.data.box = [go.Box(boxpoints="outliers", notched=False)]
 
 
 pio.templates["custom_template"] = template
@@ -237,7 +237,7 @@ def multiple_histogram(
         df, [label_x, label_y, label_group], replace_nones=[True, False, False]
     )
 
-    fig = graph_objects.Figure(
+    fig = go.Figure(
         layout=dict(
             title=title,
             xaxis_title_text=axis_labels[label_x],
@@ -259,7 +259,7 @@ def multiple_histogram(
             y = dat[selected_columns[1]]
 
         fig.add_trace(
-            graph_objects.Histogram(
+            go.Histogram(
                 x=x,
                 y=y,
                 histfunc=histfunc,
@@ -566,9 +566,7 @@ def surface(
             z[i_y, i_x] = calc_z(x_values[i_x], y_values[i_y])
 
     # Create a graph of cost
-    fig = graph_objects.Figure(
-        data=[graph_objects.Surface(x=x_values, y=y_values, z=z)]
-    )
+    fig = go.Figure(data=[go.Surface(x=x_values, y=y_values, z=z)])
     fig.update_layout(
         title=title,
         scene_xaxis_title=axis_title_x,
