@@ -634,7 +634,7 @@ def model_to_surface_plot(model, plot_features: List[str], data: pd.DataFrame):
 
 
 def save_plot_as_image(
-    fig, file="./plot.jpg", width=None, height="400", scale=1, format="jpg"
+    fig, file="./plot.jpg", width=None, height="400", scale=1, img_format="jpg"
 ):
     """
     Convert a figure to a static image and write it to a file or writeable object
@@ -645,7 +645,7 @@ def save_plot_as_image(
         fig - Figure object or dict representing a figure
         file (str or writeable) - A string representing a local file path
             or a writeable object (e.g. an open file descriptor)
-        format (str or None) - The desired image format:
+        img_format (str or None) - The desired image format:
 
                 'png'
                 'jpg' or 'jpeg'
@@ -669,7 +669,7 @@ def save_plot_as_image(
         width=width,
         height=height,
         scale=scale,
-        format=format,
+        format=img_format,
         engine="kaleido",
     )
 
