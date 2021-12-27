@@ -51,20 +51,20 @@ def download_extract_zip(
     if r.status_code != 200:
         raise ValueError(f"Failed to download {zip_file_url}")
 
-    # Check if zip file is OK
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    if z.testzip() is not None:
-        raise ValueError(f"Failed to extract {zip_file_url}")
+    with zipfile.ZipFile(io.BytesIO(r.content)) as z:
+        # Check if zip file is OK
+        if z.testzip() is not None:
+            raise ValueError(f"Failed to extract {zip_file_url}")
 
-    # Check if content path exists
-    if not os.path.exists(target_path):
-        logging.info("Creating %s", target_path)
-        os.makedirs(target_path)
+        # Check if content path exists
+        if not os.path.exists(target_path):
+            logging.info("Creating %s", target_path)
+            os.makedirs(target_path)
 
-    # Extract files from zip
-    logging.info("Extracting %s to %s", zip_file_url, target_path)
-    z.extractall(target_path)
-    logging.info("Extracted %s to %s", zip_file_url, target_path)
+        # Extract files from zip
+        logging.info("Extracting %s to %s", zip_file_url, target_path)
+        z.extractall(target_path)
+        logging.info("Extracted %s to %s", zip_file_url, target_path)
 
 
 def reduce_dataframe_memory_usage(

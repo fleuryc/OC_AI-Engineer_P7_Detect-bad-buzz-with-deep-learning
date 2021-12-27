@@ -79,7 +79,7 @@ def _prepare_labels(
     if isinstance(replace_nones, bool):
         replace_nones = [replace_nones] * len(labels)
 
-    for i in range(len(labels)):
+    for i, lab in enumerate(labels):
         lab = labels[i]
         if replace_nones[i] and (lab is None):
             lab = df.columns[i]
@@ -344,7 +344,7 @@ def line_2D(
             names = names + ([name] * len(x_vals))
             y = np.concatenate([y, cur[1](x=x_vals)])  # type: ignore
 
-    data = dict()
+    data = {}
     data[label_x] = x
     data[label_y] = y
     data[legend_title] = names  # type: ignore
