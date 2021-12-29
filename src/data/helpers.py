@@ -67,6 +67,67 @@ def download_extract_zip(
         logging.info("Extracted %s to %s", zip_file_url, target_path)
 
 
+def load_data_from_csv(
+    data_path: str,
+    file_name: str,
+    sep: str = ",",
+    header: int = 0,
+    index_col: int = None,
+    na_values: str = "",
+    skip_rows: int = 0,
+    skip_footer: int = 0,
+    usecols: list = None,
+    nrows: int = None,
+    dtype: dict = None,
+    engine: str = "c",
+    encoding: str = "utf-8",
+) -> pd.DataFrame:
+    """
+    Load data from csv file.
+
+    Args:
+        data_path: Path to data.
+        file_name: Name of file to load.
+        sep: Delimiter to use.
+        header: Row to use as header.
+        index_col: Column to use as index.
+        na_values: String to use for missing values.
+        skip_rows: Number of rows to skip.
+        skip_footer: Number of rows to skip at the end.
+        usecols: Columns to use.
+        nrows: Number of rows to load.
+        dtype: Data type to use.
+        engine: Engine to use.
+        encoding: Encoding to use.
+
+    Returns:
+        DataFrame with loaded data.
+    """
+    file_path = os.path.join(data_path, file_name)
+
+    if not os.path.exists(file_path):
+        logging.error("Data not found, please run `make dataset`")
+        raise ValueError(f"File {file_path} does not exist")
+
+    logging.info(f"Data found, loading from {file_path}")
+    df = pd.read_csv(
+        file_path,
+        sep=sep,
+        header=header,
+        index_col=index_col,
+        na_values=na_values,
+        skiprows=skip_rows,
+        skipfooter=skip_footer,
+        usecols=usecols,
+        nrows=nrows,
+        dtype=dtype,
+        engine=engine,
+        encoding=encoding,
+    )
+
+    return df
+
+
 def reduce_dataframe_memory_usage(
     df: pd.DataFrame,
     high_precision: bool = False,

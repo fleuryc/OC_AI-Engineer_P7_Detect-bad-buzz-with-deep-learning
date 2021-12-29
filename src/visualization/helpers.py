@@ -708,8 +708,6 @@ def plot_oneway_anova_p_values(
             "p_value": "P-Value",
             "index": "Feature",
         },
-        width=1400,
-        height=800,
     )
     fig.show()
 
@@ -859,6 +857,7 @@ def plot_classifier_results(
     classifier: ClassifierMixin,
     X_test: pd.DataFrame,
     y_test: pd.Series,
+    title: str = "Classifier Results",
 ) -> None:
     """
     Plots the confusion_matrix, precision_recall_curve and roc_curve of a
@@ -900,6 +899,8 @@ def plot_classifier_results(
         name=classifier.__class__.__name__,
         ax=ax[2],
     )
+
+    plt.suptitle(title)
 
     plt.show()
 

@@ -62,9 +62,9 @@ requirements-dev.txt: check-system check-venv ## Create requirements-dev.txt fil
 requirements.txt: check-system check-venv ## Create requirements.txt file
 	@echo ">>> Creating 'requirements.txt' file..."
 	pip install --upgrade pip
-	pip install --upgrade jupyterlab ipykernel ipywidgets widgetsnbextension \
+	pip install --upgrade kaggle jupyterlab ipykernel ipywidgets widgetsnbextension \
 		graphviz python-dotenv requests matplotlib seaborn plotly numpy \
-		statsmodels pandas sklearn 
+		statsmodels pandas sklearn nltk gensim spacy
 	pip freeze | grep -v "pkg_resources" > requirements.txt
 	@echo ">>> OK."
 	@echo ""
@@ -159,8 +159,19 @@ clean-pycache: ## Remove python cache files
 
 .PHONY: dataset
 dataset: ## Download and extract dataset from Kaggle
-	@echo ">>> Downloading and saving data files..."
-	python -m src.data.make-dataset -t data/raw/api/
+	@echo ">>> Downloading and extracting data files..."
+	@if [ ! -f "data/raw/training.1600000.processed.noemoticon.csv" ] ; \
+	then \
+		echo "Downloading data..." ; \
+		kaggle datasets download -d kazanova/sentiment140 -p data/raw/ ; \
+		echo "Unzipping data..."; \
+		unzip -u -q data/raw/sentiment140.zip -d data/raw/ ; \
+		echo "Removing zip file..." ; \
+		rm data/raw/sentiment140.zip ; \
+		echo "Done."; \
+	else \
+		echo "Data files already downloaded."; \
+	fi
 	@echo ">>> OK."
 	@echo ""
 
