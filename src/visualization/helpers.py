@@ -994,7 +994,7 @@ def plot_pca_2d(
 def plot_top_words(model, feature_names, n_top_words, n_topics, title):
     n_cols = 5
     n_lines = int(np.ceil(min(n_topics, model.n_components) / n_cols))
-    fig, axes = plt.subplots(n_lines, n_cols, figsize=(30, 10), sharex=True)
+    fig, axes = plt.subplots(n_lines, n_cols, figsize=(30, n_lines*5), sharex=True)
     axes = axes.flatten()
     for topic_idx, topic in enumerate(model.components_[0:n_topics]):
         top_features_ind = topic.argsort()[: -n_top_words - 1 : -1]
