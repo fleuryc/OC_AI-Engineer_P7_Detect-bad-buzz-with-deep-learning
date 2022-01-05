@@ -161,19 +161,39 @@ def reduce_dataframe_memory_usage(
             # "int" dtype
             c_min = df[col].min()
             c_max = df[col].max()
-            if c_min > np.iinfo(np.uint8).min and c_max < np.iinfo(np.uint8).max:
+            if (
+                c_min > np.iinfo(np.uint8).min
+                and c_max < np.iinfo(np.uint8).max
+            ):
                 df[col] = df[col].astype("UInt8")
-            elif c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max:
+            elif (
+                c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max
+            ):
                 df[col] = df[col].astype("Int8")
-            elif c_min > np.iinfo(np.uint16).min and c_max < np.iinfo(np.uint16).max:
+            elif (
+                c_min > np.iinfo(np.uint16).min
+                and c_max < np.iinfo(np.uint16).max
+            ):
                 df[col] = df[col].astype("UInt16")
-            elif c_min > np.iinfo(np.int16).min and c_max < np.iinfo(np.int16).max:
+            elif (
+                c_min > np.iinfo(np.int16).min
+                and c_max < np.iinfo(np.int16).max
+            ):
                 df[col] = df[col].astype("Int16")
-            elif c_min > np.iinfo(np.uint32).min and c_max < np.iinfo(np.uint32).max:
+            elif (
+                c_min > np.iinfo(np.uint32).min
+                and c_max < np.iinfo(np.uint32).max
+            ):
                 df[col] = df[col].astype("UInt32")
-            elif c_min > np.iinfo(np.int32).min and c_max < np.iinfo(np.int32).max:
+            elif (
+                c_min > np.iinfo(np.int32).min
+                and c_max < np.iinfo(np.int32).max
+            ):
                 df[col] = df[col].astype("Int32")
-            elif c_min > np.iinfo(np.uint64).min and c_max < np.iinfo(np.uint64).max:
+            elif (
+                c_min > np.iinfo(np.uint64).min
+                and c_max < np.iinfo(np.uint64).max
+            ):
                 df[col] = df[col].astype("UInt64")
             else:
                 df[col] = df[col].astype("Int64")
@@ -199,3 +219,28 @@ def reduce_dataframe_memory_usage(
         )
 
     return df
+
+
+def balance_sample(
+    df: pd.DataFrame, column: str, sample_size: int
+) -> pd.DataFrame:
+    """
+    Samples a dataframe to a given size, balancing the classes.
+
+    Args:
+        df (pd.DataFrame): Dataframe to sample.
+        column (str): Column to balance and sample by.
+        sample_size (int): Sample size.
+
+    Returns:
+        pd.DataFrame: Sampled and balanced dataframe.
+    """
+    return (
+        df.groupby(column, group_keys=False)
+        .apply(
+            lambda x: x.sample(
+                n=int(sample_size / df["column"].nunique()), random_state=42
+            )
+        )
+        .reset_index(drop=True)
+    )
