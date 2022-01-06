@@ -239,7 +239,7 @@ def balance_sample(
         df.groupby(column, group_keys=False)
         .apply(
             lambda x: x.sample(
-                n=int(sample_size / df["column"].nunique()), random_state=42
+                n=int(sample_size / df[column].nunique()), random_state=42
             )
         )
         .reset_index(drop=True)

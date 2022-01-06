@@ -1,4 +1,8 @@
-"""Custom wrapper for Azure Text Analytics API."""
+"""
+Custom wrapper for Azure Text Analytics API.
+https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/overview
+"""
+from typing import Any
 import numpy as np
 import json
 
@@ -16,7 +20,7 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
 
     classes_ = ("NEGATIVE", "POSITIVE")
     batch_size = 10
-    analyze_sentiment_cache = {}
+    cache = {}
 
     def __init__(self, endpoint: str, key: str, **kwargs) -> None:
         """
@@ -31,10 +35,11 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
             None
         """
         self.kwargs = kwargs
-        self.client = TextAnalyticsClient(
+        client = TextAnalyticsClient(
             endpoint=endpoint,
             credential=AzureKeyCredential(key),
         )
+        self.classifier = client.analyze_sentiment
 
     def fit(self, X: np.ndarray, y: np.ndarray = None) -> ClassifierMixin:
         """
@@ -51,10 +56,10 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
         for i in range(0, len(X), self.batch_size):
             # We can only submit a batch of 10 documents at a time.
             batch = X[i : i + self.batch_size]
-            results = self.client.analyze_sentiment(batch)
+            results = self.classifier(batch)
 
             for idx, res in enumerate(results):
-                self.analyze_sentiment_cache[batch[idx]] = {
+                self.cache[batch[idx]] = {
                     "positive": res.confidence_scores.positive,
                     "neutral": res.confidence_scores.neutral,
                     "negative": res.confidence_scores.negative,
@@ -73,7 +78,7 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
             None
         """
         with open(filename, "w") as f:
-            json.dump(self.analyze_sentiment_cache, f)
+            json.dump(self.cache, f)
 
     def load_cache_json(self, filename: str) -> None:
         """
@@ -86,7 +91,7 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
             None
         """
         with open(filename, "r") as f:
-            self.analyze_sentiment_cache = json.load(f)
+            self.cache = json.load(f)
 
     def predict(self, X: np.ndarray, y: np.ndarray = None) -> np.ndarray:
         """
@@ -108,19 +113,23 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
         preds = []
 
         for text in X:
-            if text not in self.analyze_sentiment_cache.keys():
-                res = self.client.analyze_sentiment([text])[0]
-                self.analyze_sentiment_cache[text] = {
+            if text not in self.cache.keys():
+                res = self.classifier([text])[0]
+                self.cache[text] = {
                     "positive": res.confidence_scores.positive,
                     "neutral": res.confidence_scores.neutral,
                     "negative": res.confidence_scores.negative,
                 }
 
+            negative_proba = self._get_negative_proba_from_result(
+                self.cache[text]
+            )
+            positive_proba = self._get_positive_proba_from_result(
+                self.cache[text]
+            )
+
             preds.append(
-                "POSITIVE"
-                if self.analyze_sentiment_cache[text]["positive"]
-                > self.analyze_sentiment_cache[text]["negative"]
-                else "NEGATIVE"
+                "POSITIVE" if positive_proba > negative_proba else "NEGATIVE"
             )
 
         # Return the array of predicted labels
@@ -132,9 +141,6 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
 
         Sentiment analysis results are loaded from cache if present
             or a request is sent to Azure and the result is saved in cache.
-        The API returns probabilities for "negative", "neutral" and "positive" classes.
-        - NEGATIVE class proba = API's "negative" score + (API's "neutral" score) / 2
-        - POSITIVE class proba = 1 - NEGATIVE class proba
 
         Args:
             X (np.ndarray): Array of text documents.
@@ -147,20 +153,52 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
         preds = []
 
         for text in X:
-            if text not in self.analyze_sentiment_cache.keys():
-                res = self.client.analyze_sentiment([text])[0]
-                self.analyze_sentiment_cache[text] = {
+            if text not in self.cache.keys():
+                res = self.classifier([text])[0]
+                self.cache[text] = {
                     "positive": res.confidence_scores.positive,
                     "neutral": res.confidence_scores.neutral,
                     "negative": res.confidence_scores.negative,
                 }
 
-            negative_proba = (
-                self.analyze_sentiment_cache[text]["negative"]
-                + self.analyze_sentiment_cache[text]["neutral"] / 2
+            negative_proba = self._get_negative_proba_from_result(
+                self.cache[text]
             )
             positive_proba = 1 - negative_proba
+
             preds.append((negative_proba, positive_proba))
 
         # Return the array of probabilities
         return np.array(preds)
+
+    def _get_negative_proba_from_result(self, result: Any) -> float:
+        """Get the negative class proba from the result.
+
+        Half of the "neutral" score is added to the "negative" score.
+
+        Args:
+            result (Any): result from classifier.
+
+        Raises:
+            ValueError: There must be a negative class in the result.
+
+        Returns:
+            float: Negative class probability.
+        """
+        return result["negative"] + result["neutral"] / 2
+
+    def _get_positive_proba_from_result(self, result: Any) -> float:
+        """Get the positive class proba from the result.
+
+        Half of the "neutral" score is added to the "positive" score.
+
+        Args:
+            result (Any): result from classifier.
+
+        Raises:
+            ValueError: There must be a positive class in the result.
+
+        Returns:
+            float: Positive class probability.
+        """
+        return result["positive"] + result["neutral"] / 2
