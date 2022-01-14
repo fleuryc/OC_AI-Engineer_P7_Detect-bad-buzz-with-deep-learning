@@ -15,10 +15,11 @@ from sklearn.base import ClassifierMixin, is_classifier
 from sklearn.decomposition import PCA
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import (
-    plot_confusion_matrix,
-    plot_precision_recall_curve,
-    plot_roc_curve,
+    RocCurveDisplay,
+    PrecisionRecallDisplay,
+    ConfusionMatrixDisplay,
 )
+
 
 # Set the default theme
 template = go.layout.Template()
@@ -230,7 +231,9 @@ def multiple_histogram(
     """
 
     if histfunc == "count" and label_y is not None:
-        raise ValueError("Set histfunc to a value such as sum or avg if using label_y")
+        raise ValueError(
+            "Set histfunc to a value such as sum or avg if using label_y"
+        )
 
     # Automatically pick columns if not specified
     selected_columns, axis_labels = _prepare_labels(
@@ -423,7 +426,10 @@ def scatter_2D(
     if label_size is None:
         # User a marker size inversely proportional to the number of points
         size = int(
-            (round(22.0 - 19 / (1 + exp(-(df.shape[0] / 100 - 2)))) * size_multiplier)
+            (
+                round(22.0 - 19 / (1 + exp(-(df.shape[0] / 100 - 2))))
+                * size_multiplier
+            )
         )
     else:
         # Set the size based on a label
@@ -495,7 +501,9 @@ def scatter_3D(
     """
 
     # Automatically pick columns if not specified
-    selected_columns, axis_labels = _prepare_labels(df, [label_x, label_y, label_z])
+    selected_columns, axis_labels = _prepare_labels(
+        df, [label_x, label_y, label_z]
+    )
 
     if label_colour is None:
         # Colour by the Z dimension
@@ -575,7 +583,9 @@ def surface(
     )
 
     # Add z-axis as colourbar title
-    fig.update_traces(colorbar_title_text=axis_title_z, selector=dict(type="surface"))
+    fig.update_traces(
+        colorbar_title_text=axis_title_z, selector=dict(type="surface")
+    )
 
     # Show the plot, if requested
     if show:
@@ -617,8 +627,12 @@ def model_to_surface_plot(model, plot_features: List[str], data: pd.DataFrame):
         return model.predict(df)
 
     # Create a 3d plot of predictions
-    x_vals = np.array(np.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20))
-    y_vals = np.array(np.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20))
+    x_vals = np.array(
+        np.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20)
+    )
+    y_vals = np.array(
+        np.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20)
+    )
 
     return surface(
         x_vals,
@@ -693,8 +707,12 @@ def plot_oneway_anova_p_values(
 
     for col in dataframe.select_dtypes("number").columns:
         anova.loc[col, "p_value"] = f_oneway(
-            dataframe.loc[dataframe[categorical_column] == classes[0], col].dropna(),
-            dataframe.loc[dataframe[categorical_column] == classes[1], col].dropna(),
+            dataframe.loc[
+                dataframe[categorical_column] == classes[0], col
+            ].dropna(),
+            dataframe.loc[
+                dataframe[categorical_column] == classes[1], col
+            ].dropna(),
         )[1]
 
     # Plot the bar chart with Plotly Express
@@ -836,7 +854,9 @@ def plot_boxes(
     Returns : None
     """
     if plot_columns is None:
-        plot_columns = dataframe.select_dtypes(include="number").columns.tolist()
+        plot_columns = dataframe.select_dtypes(
+            include="number"
+        ).columns.tolist()
 
     for col in plot_columns:
         fig = px.box(
@@ -855,8 +875,10 @@ def plot_boxes(
 
 def plot_classifier_results(
     classifier: ClassifierMixin,
-    X_test: pd.DataFrame,
-    y_test: pd.Series,
+    X: pd.DataFrame,
+    y_true: pd.Series,
+    y_pred: Union[pd.Series, None] = None,
+    y_pred_proba: Union[pd.Series, None] = None,
     title: str = "Classifier Results",
 ) -> None:
     """
@@ -865,10 +887,12 @@ def plot_classifier_results(
 
     Args:
         classifier (ClassifierMixin): sklearn Classifier
-        X_test (pd.DataFrame): test data
-        y_test (pd.Series): true values
+        X (pd.DataFrame): test data
+        y_true (pd.Series): true values
+        y_pred (pd.Series): predicted values
+        y_pred_proba (pd.Series): predicted values probabilities
     """
-    if not is_classifier(classifier):
+    if (y_pred_proba is None or y_pred is None) and not is_classifier(classifier):
         raise ValueError(f"{classifier} is not a classifier.")
 
     _, ax = plt.subplots(
@@ -877,28 +901,45 @@ def plot_classifier_results(
         figsize=(24, 8),
     )
 
-    plot_confusion_matrix(
-        classifier,
-        X_test,
-        y_test,
-        ax=ax[0],
-    )
-
-    plot_precision_recall_curve(
-        classifier,
-        X_test,
-        y_test,
-        name=classifier.__class__.__name__,
-        ax=ax[1],
-    )
-
-    plot_roc_curve(
-        classifier,
-        X_test,
-        y_test,
-        name=classifier.__class__.__name__,
-        ax=ax[2],
-    )
+    if y_pred_proba is None or y_pred is None:
+        ConfusionMatrixDisplay.from_estimator(
+            classifier,
+            X,
+            y_true,
+            ax=ax[0],
+        )
+        PrecisionRecallDisplay.from_estimator(
+            classifier,
+            X,
+            y_true,
+            name=classifier.__class__.__name__,
+            ax=ax[1],
+        )
+        RocCurveDisplay.from_estimator(
+            classifier,
+            X,
+            y_true,
+            name=classifier.__class__.__name__,
+            ax=ax[2],
+        )
+    else:
+        ConfusionMatrixDisplay.from_predictions(
+            y_true,
+            y_pred,
+            ax=ax[0],
+        )
+        PrecisionRecallDisplay.from_predictions(
+            y_true,
+            y_pred_proba,
+            name=classifier.__class__.__name__,
+            ax=ax[1],
+        )
+        RocCurveDisplay.from_predictions(
+            y_true,
+            y_pred_proba,
+            name=classifier.__class__.__name__,
+            ax=ax[2],
+        )
 
     plt.suptitle(title)
 
@@ -994,7 +1035,9 @@ def plot_pca_2d(
 def plot_top_words(model, feature_names, n_top_words, n_topics, title):
     n_cols = 5
     n_lines = int(np.ceil(min(n_topics, model.n_components) / n_cols))
-    fig, axes = plt.subplots(n_lines, n_cols, figsize=(30, n_lines*5), sharex=True)
+    fig, axes = plt.subplots(
+        n_lines, n_cols, figsize=(30, n_lines * 5), sharex=True
+    )
     axes = axes.flatten()
     for topic_idx, topic in enumerate(model.components_[0:n_topics]):
         top_features_ind = topic.argsort()[: -n_top_words - 1 : -1]
