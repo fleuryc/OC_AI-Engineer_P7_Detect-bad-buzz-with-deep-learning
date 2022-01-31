@@ -2,13 +2,12 @@
 Custom wrapper for Azure Text Analytics API.
 https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/overview
 """
-from typing import Any
-import numpy as np
 import json
+from typing import Any, Dict
 
+import numpy as np
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
-
 from sklearn.base import BaseEstimator, ClassifierMixin
 
 
@@ -20,7 +19,7 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
 
     classes_ = ("NEGATIVE", "POSITIVE")
     batch_size = 10
-    cache = {}
+    cache: Dict[str, Any] = {}
 
     def __init__(self, endpoint: str, key: str, **kwargs) -> None:
         """
@@ -121,16 +120,10 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
                     "negative": res.confidence_scores.negative,
                 }
 
-            negative_proba = self._get_negative_proba_from_result(
-                self.cache[text]
-            )
-            positive_proba = self._get_positive_proba_from_result(
-                self.cache[text]
-            )
+            negative_proba = self._get_negative_proba_from_result(self.cache[text])
+            positive_proba = self._get_positive_proba_from_result(self.cache[text])
 
-            preds.append(
-                "POSITIVE" if positive_proba > negative_proba else "NEGATIVE"
-            )
+            preds.append("POSITIVE" if positive_proba > negative_proba else "NEGATIVE")
 
         # Return the array of predicted labels
         return np.array(preds)
@@ -161,9 +154,7 @@ class CustomAzureTextAnalyticsClassifier(BaseEstimator, ClassifierMixin):
                     "negative": res.confidence_scores.negative,
                 }
 
-            negative_proba = self._get_negative_proba_from_result(
-                self.cache[text]
-            )
+            negative_proba = self._get_negative_proba_from_result(self.cache[text])
             positive_proba = 1 - negative_proba
 
             preds.append((negative_proba, positive_proba))

@@ -2,25 +2,22 @@
 Custom wrapper for HuggingFace Sequence Classification.
 https://huggingface.co/docs/transformers/master/en/task_summary#sequence-classification
 """
-from typing import Any
-import numpy as np
 import json
+from typing import Any, Dict
 
+import numpy as np
+from sklearn.base import BaseEstimator, ClassifierMixin
 from transformers import pipeline
 
-from sklearn.base import BaseEstimator, ClassifierMixin
 
-
-class CustomHuggingfaceSentimentAnalysisClassifier(
-    BaseEstimator, ClassifierMixin
-):
+class CustomHuggingfaceSentimentAnalysisClassifier(BaseEstimator, ClassifierMixin):
     """
     Custom scikit-learn classifier implemented as a wrapper of
     HuggingFace's Sequence Classification task : Sentiment analysis.
     """
 
     classes_ = ("NEGATIVE", "POSITIVE")
-    cache = {}
+    cache: Dict[str, Any] = {}
 
     def __init__(self, **kwargs) -> None:
         """
@@ -123,9 +120,7 @@ class CustomHuggingfaceSentimentAnalysisClassifier(
             if text not in self.cache.keys():
                 self.cache[text] = self.classifier(text)
 
-            negative_proba = self._get_negative_proba_from_result(
-                self.cache[text]
-            )
+            negative_proba = self._get_negative_proba_from_result(self.cache[text])
             positive_proba = 1 - negative_proba
 
             preds.append((negative_proba, positive_proba))

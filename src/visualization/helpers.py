@@ -15,11 +15,10 @@ from sklearn.base import ClassifierMixin, is_classifier
 from sklearn.decomposition import PCA
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import (
-    RocCurveDisplay,
-    PrecisionRecallDisplay,
     ConfusionMatrixDisplay,
+    PrecisionRecallDisplay,
+    RocCurveDisplay,
 )
-
 
 # Set the default theme
 template = go.layout.Template()
@@ -231,9 +230,7 @@ def multiple_histogram(
     """
 
     if histfunc == "count" and label_y is not None:
-        raise ValueError(
-            "Set histfunc to a value such as sum or avg if using label_y"
-        )
+        raise ValueError("Set histfunc to a value such as sum or avg if using label_y")
 
     # Automatically pick columns if not specified
     selected_columns, axis_labels = _prepare_labels(
@@ -426,10 +423,7 @@ def scatter_2D(
     if label_size is None:
         # User a marker size inversely proportional to the number of points
         size = int(
-            (
-                round(22.0 - 19 / (1 + exp(-(df.shape[0] / 100 - 2))))
-                * size_multiplier
-            )
+            (round(22.0 - 19 / (1 + exp(-(df.shape[0] / 100 - 2)))) * size_multiplier)
         )
     else:
         # Set the size based on a label
@@ -501,9 +495,7 @@ def scatter_3D(
     """
 
     # Automatically pick columns if not specified
-    selected_columns, axis_labels = _prepare_labels(
-        df, [label_x, label_y, label_z]
-    )
+    selected_columns, axis_labels = _prepare_labels(df, [label_x, label_y, label_z])
 
     if label_colour is None:
         # Colour by the Z dimension
@@ -583,9 +575,7 @@ def surface(
     )
 
     # Add z-axis as colourbar title
-    fig.update_traces(
-        colorbar_title_text=axis_title_z, selector=dict(type="surface")
-    )
+    fig.update_traces(colorbar_title_text=axis_title_z, selector=dict(type="surface"))
 
     # Show the plot, if requested
     if show:
@@ -627,12 +617,8 @@ def model_to_surface_plot(model, plot_features: List[str], data: pd.DataFrame):
         return model.predict(df)
 
     # Create a 3d plot of predictions
-    x_vals = np.array(
-        np.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20)
-    )
-    y_vals = np.array(
-        np.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20)
-    )
+    x_vals = np.array(np.linspace(mins[plot_features[0]], maxes[plot_features[0]], 20))
+    y_vals = np.array(np.linspace(mins[plot_features[1]], maxes[plot_features[1]], 20))
 
     return surface(
         x_vals,
@@ -707,12 +693,8 @@ def plot_oneway_anova_p_values(
 
     for col in dataframe.select_dtypes("number").columns:
         anova.loc[col, "p_value"] = f_oneway(
-            dataframe.loc[
-                dataframe[categorical_column] == classes[0], col
-            ].dropna(),
-            dataframe.loc[
-                dataframe[categorical_column] == classes[1], col
-            ].dropna(),
+            dataframe.loc[dataframe[categorical_column] == classes[0], col].dropna(),
+            dataframe.loc[dataframe[categorical_column] == classes[1], col].dropna(),
         )[1]
 
     # Plot the bar chart with Plotly Express
@@ -854,9 +836,7 @@ def plot_boxes(
     Returns : None
     """
     if plot_columns is None:
-        plot_columns = dataframe.select_dtypes(
-            include="number"
-        ).columns.tolist()
+        plot_columns = dataframe.select_dtypes(include="number").columns.tolist()
 
     for col in plot_columns:
         fig = px.box(
@@ -1035,9 +1015,7 @@ def plot_pca_2d(
 def plot_top_words(model, feature_names, n_top_words, n_topics, title):
     n_cols = 5
     n_lines = int(np.ceil(min(n_topics, model.n_components) / n_cols))
-    fig, axes = plt.subplots(
-        n_lines, n_cols, figsize=(30, n_lines * 5), sharex=True
-    )
+    fig, axes = plt.subplots(n_lines, n_cols, figsize=(30, n_lines * 5), sharex=True)
     axes = axes.flatten()
     for topic_idx, topic in enumerate(model.components_[0:n_topics]):
         top_features_ind = topic.argsort()[: -n_top_words - 1 : -1]
