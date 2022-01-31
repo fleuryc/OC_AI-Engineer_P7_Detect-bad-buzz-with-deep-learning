@@ -152,3 +152,6 @@ ipython_config.py
 
 # Compiled Jupyter Notebooks
 *-compiled.ipynb
+
+# Azure configuration
+config.json
