@@ -14260,7 +14260,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Azure-Cognitive-Services-:-Text-Analytics-API">Azure Cognitive Services : Text Analytics API<a class="anchor-link" href="#Azure-Cognitive-Services-:-Text-Analytics-API">&#182;</a></h1><p>In this notebook, we will use the <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview">Azure Cognitive Services Text Analytics API - Sentiment Analysis</a> to predict the sentiment of the tweets.</p>
-<p>We will compare this pre-trained cloud model to the baseline model from <a href="main.ipynb">main.ipynb</a>.</p>
+<p>We will compare this pre-trained cloud model to the baseline model from <a href="1_baseline.html">1_baseline.ipynb</a>.</p>
 
 </div>
 </div>
@@ -14354,9 +14354,7 @@ Data files already downloaded.
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load data from CSV</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="s2">&quot;training.1600000.processed.noemoticon.csv&quot;</span>
-    <span class="p">),</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="s2">&quot;training.1600000.processed.noemoticon.csv&quot;</span><span class="p">),</span>
     <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 
