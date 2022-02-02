@@ -11,7 +11,6 @@ def init():
     model = tf.keras.models.load_model(model_path)
 
 
-
 def run(raw_data):
     data = np.array(json.loads(raw_data)["data"])
     y_hat = model.predict(data)
