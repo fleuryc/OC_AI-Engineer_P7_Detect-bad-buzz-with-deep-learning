@@ -14261,6 +14261,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="AzureML-Studio-:-Designer">AzureML Studio : Designer<a class="anchor-link" href="#AzureML-Studio-:-Designer">&#182;</a></h1><p>In this notebook, we will use the AzureML Studio's <a href="https://docs.microsoft.com/en-us/azure/machine-learning/concept-designer">Designer</a> to design our data processing pipeline.</p>
 <p>The experiment is visible in the AzureML Studio : <a href="https://ml.azure.com/experiments/id/9bde22d7-75e6-41cc-9bfe-03e15873f292?wsid=/subscriptions/da2e4791-6dd1-422b-848a-a961cef6ab89/resourcegroups/OC_P7/workspaces/oc-p7-ml-workspace&amp;tid=43204f6d-c600-4585-985a-6bafda08d2bb">oc-p7-automated-ml</a></p>
+<p><img src="img/azureml_designer_pipeline.png" alt="AzureML Designer - Pipeline"></p>
 <p>We will compare this pre-trained local model to the baseline model from <a href="1_baseline.html">1_baseline.ipynb</a>.</p>
 
 </div>
@@ -14269,7 +14270,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Text-preprocessing">Text preprocessing<a class="anchor-link" href="#Text-preprocessing">&#182;</a></h2><p>Before training our models, the data is prepared as follow :</p>
 <ul>
-<li>data is sampled to 1% of the original data (stratified according to the target variable)</li>
+<li>data is sampled to 2% of the original data (stratified according to the target variable)</li>
 <li>text is processed :<ul>
 <li>expand verb contractions</li>
 <li>remove stop words</li>
@@ -14338,17 +14339,17 @@ a.anchor-link {
 <tr>
 <td>Feature Hashing</td>
 <td><img src="img/azureml_designer_feature_hashing_confusion_matrix.png" alt="Confusion Matrix"></td>
-<td>0.637</td>
+<td>0.663</td>
 <td><img src="img/azureml_designer_feature_hashing_precision_recall_curve.png" alt="Precision Recall Curve"></td>
-<td>0.691</td>
+<td>0.726</td>
 <td><img src="img/azureml_designer_feature_hashing_ROC_curve.png" alt="ROC Curve"></td>
 </tr>
 <tr>
 <td>N-Gram Features</td>
 <td><img src="img/azureml_designer_n-gram_confusion_matrix.png" alt="Confusion Matrix"></td>
-<td>0.696</td>
+<td>0.723</td>
 <td><img src="img/azureml_designer_n-gram_precision_recall_curve.png" alt="Precision Recall Curve"></td>
-<td>0.775</td>
+<td>0.811</td>
 <td><img src="img/azureml_designer_n-gram_ROC_curve.png" alt="ROC Curve"></td>
 </tr>
 </tbody>
@@ -14356,10 +14357,10 @@ a.anchor-link {
 <p>We can see that the N-Gram Features model performs better than the Feature Hashing model.</p>
 <p>The performances on the dataset are similar to our baseline model :</p>
 <ul>
-<li>Average Precision = 0.696 (baseline = 0.73 , -4.1%)</li>
-<li>ROC AUC = 0.775 (baseline = 0.74 , +4.7%)</li>
+<li>Average Precision = 0.723 (baseline = 0.73 , -1%)</li>
+<li>ROC AUC = 0.811 (baseline = 0.74 , +9.6%)</li>
 </ul>
-<p>Unlike our baseline model, this model is quite balanced, just slightly biased towards the <em>POSITIVE</em> class. It is much less biased than our baseline model : it predicted 5.6% (baseline = 35% , -84%) more <em>POSITIVE</em> (4109) messages than <em>NEGATIVE</em> (3891).</p>
+<p>Unlike our baseline model, this model is quite balanced, just slightly biased towards the <em>POSITIVE</em> class. It is much less biased than our baseline model : it predicted 6.8% (baseline = 35% , -81%) more <em>POSITIVE</em> (3305) messages than <em>NEGATIVE</em> (3095).</p>
 
 </div>
 </div>
