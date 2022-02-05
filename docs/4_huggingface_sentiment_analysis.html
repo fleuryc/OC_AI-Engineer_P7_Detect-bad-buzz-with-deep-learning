@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>HuggingFace Transformer Pipeline : Sentiment Analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>4_huggingface_sentiment_analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -4551,7 +4551,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-
+  
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -14238,17 +14238,17 @@ a.anchor-link {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 },
                 "HTML-CSS": {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14260,7 +14260,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="HuggingFace-Transformer-Pipeline-:-Sentiment-Analysis">HuggingFace Transformer Pipeline : Sentiment Analysis<a class="anchor-link" href="#HuggingFace-Transformer-Pipeline-:-Sentiment-Analysis">&#182;</a></h1><p>In this notebook, we will use the pre-trained <a href="https://huggingface.co/docs/transformers/task_summary#sequence-classification">HuggingFace's Transformer Pipeline : Sentiment Analysis</a> to predict the sentiment of the tweets.</p>
-<p>We will compare this pre-trained local model to the baseline model from <a href="1_baseline.html">1_baseline.ipynb</a>.</p>
+<p>We will compare this pre-trained local model to the baseline model from <a href="1_baseline.ipynb">1_baseline.ipynb</a>.</p>
 
 </div>
 </div>
@@ -14322,7 +14322,7 @@ a.anchor-link {
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14385,7 +14385,7 @@ Data files already downloaded.
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 
 
@@ -14448,7 +14448,7 @@ Data files already downloaded.
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Classification-Model">Classification Model<a class="anchor-link" href="#Classification-Model">&#182;</a></h2><p>Now we can measure the performance of our model defined in <a href="../src/models/custom_huggingface_sentiment_analysis_classifier.py">custom_huggingface_sentiment_analysis_classifier.py</a>. We are going to use the same metrics as our baseline model defined in <a href="main.ipynb">main.ipynb</a>.</p>
+<h2 id="Classification-Model">Classification Model<a class="anchor-link" href="#Classification-Model">&#182;</a></h2><p>Now we can measure the performance of our model defined in <a href="../src/models/custom_huggingface_sentiment_analysis_classifier.py">custom_huggingface_sentiment_analysis_classifier.py</a>. We are going to use the same metrics as our baseline model defined in <a href="1_baseline.ipynb">1_baseline.ipynb</a>.</p>
 
 </div>
 </div>
@@ -14502,7 +14502,7 @@ Data files already downloaded.
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14526,7 +14526,7 @@ If your task is similar to the task the model of the checkpoint was trained on, 
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14596,7 +14596,7 @@ If your task is similar to the task the model of the checkpoint was trained on, 
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14668,19 +14668,19 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Partition explainer: 2it [00:34, 34.54s/it]
+<pre>Partition explainer: 2it [00:34, 34.54s/it]               
 </pre>
 </div>
 </div>
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15204,19 +15204,19 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Partition explainer: 2it [00:31, 31.59s/it]
+<pre>Partition explainer: 2it [00:31, 31.59s/it]               
 </pre>
 </div>
 </div>
 
 <div class="jp-OutputArea-child">
 
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
