@@ -4551,7 +4551,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-  
+
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -14238,17 +14238,17 @@ a.anchor-link {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 },
                 "HTML-CSS": {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14260,7 +14260,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Custom-Models-:-Neural-Networks-with-Keras">Custom Models : Neural Networks with Keras<a class="anchor-link" href="#Custom-Models-:-Neural-Networks-with-Keras">&#182;</a></h1><p>In this notebook, we will use the <a href="https://keras.io/getting_started/">Keras library</a> to implement different Artificial Neural Network (ANN) models.</p>
-<p>We will compare these models to the baseline model from <a href="1_baseline.ipynb">1_baseline.ipynb</a>.</p>
+<p>We will compare these models to the baseline model from <a href="1_baseline.html">1_baseline.ipynb</a>.</p>
 
 </div>
 </div>
@@ -14312,7 +14312,7 @@ a.anchor-link {
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14349,7 +14349,7 @@ a.anchor-link {
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14416,7 +14416,7 @@ Data files already downloaded.
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 
 
@@ -14609,26 +14609,26 @@ The Neural Network architecture will be a simple feed forward network with two h
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;ffnn&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_3 (TextV  (None, 10000)            0         
- ectorization)                                                   
-                                                                 
- dense (Dense)               (None, 100)               1000100   
-                                                                 
- dropout (Dropout)           (None, 100)               0         
-                                                                 
- dense_1 (Dense)             (None, 10)                1010      
-                                                                 
- dense_2 (Dense)             (None, 1)                 11        
-                                                                 
+ text_vectorization_3 (TextV  (None, 10000)            0
+ ectorization)
+
+ dense (Dense)               (None, 100)               1000100
+
+ dropout (Dropout)           (None, 100)               0
+
+ dense_1 (Dense)             (None, 10)                1010
+
+ dense_2 (Dense)             (None, 1)                 11
+
 =================================================================
 Total params: 1,001,121
 Trainable params: 1,001,121
@@ -14680,7 +14680,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14734,7 +14734,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14919,7 +14919,7 @@ The document vector represents the average of the SpaCy vectors of the tokens in
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14935,23 +14935,23 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;ffnn_on_spacy&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- dense (Dense)               (None, 100)               30100     
-                                                                 
- dropout (Dropout)           (None, 100)               0         
-                                                                 
- dense_1 (Dense)             (None, 10)                1010      
-                                                                 
- dense_2 (Dense)             (None, 1)                 11        
-                                                                 
+ dense (Dense)               (None, 100)               30100
+
+ dropout (Dropout)           (None, 100)               0
+
+ dense_1 (Dense)             (None, 10)                1010
+
+ dense_2 (Dense)             (None, 1)                 11
+
 =================================================================
 Total params: 31,121
 Trainable params: 31,121
@@ -14993,7 +14993,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15005,7 +15005,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15049,7 +15049,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15115,7 +15115,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15198,12 +15198,12 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>1247245it [11:20, 1833.20it/s] 
+<pre>1247245it [11:20, 1833.20it/s]
 </pre>
 </div>
 </div>
@@ -15318,7 +15318,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15335,7 +15335,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15366,7 +15366,7 @@ Epoch 10/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15378,7 +15378,7 @@ Epoch 10/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15390,7 +15390,7 @@ Epoch 10/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15402,23 +15402,23 @@ Epoch 10/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;ffnn_on_doc2vec&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- dense (Dense)               (None, 100)               10100     
-                                                                 
- dropout (Dropout)           (None, 100)               0         
-                                                                 
- dense_1 (Dense)             (None, 10)                1010      
-                                                                 
- dense_2 (Dense)             (None, 1)                 11        
-                                                                 
+ dense (Dense)               (None, 100)               10100
+
+ dropout (Dropout)           (None, 100)               0
+
+ dense_1 (Dense)             (None, 10)                1010
+
+ dense_2 (Dense)             (None, 1)                 11
+
 =================================================================
 Total params: 11,121
 Trainable params: 11,121
@@ -15460,7 +15460,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15471,7 +15471,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15483,7 +15483,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15527,7 +15527,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15570,7 +15570,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15614,7 +15614,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15795,7 +15795,7 @@ The goal of such layers is to represent words as vectors so that similar words h
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15815,7 +15815,7 @@ INFO:tensorflow:Assets written to: ../results/ffnn_embedding_on_encoded/assets
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15827,30 +15827,30 @@ INFO:tensorflow:Assets written to: ../results/ffnn_embedding_on_encoded/assets
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;ffnn_embedding_on_encoded&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_1 (TextV  (None, 30)               0         
- ectorization)                                                   
-                                                                 
- embedding_2 (Embedding)     (None, 30, 100)           1000000   
-                                                                 
- flatten_2 (Flatten)         (None, 3000)              0         
-                                                                 
- dense_6 (Dense)             (None, 100)               300100    
-                                                                 
- dropout_2 (Dropout)         (None, 100)               0         
-                                                                 
- dense_7 (Dense)             (None, 10)                1010      
-                                                                 
- dense_8 (Dense)             (None, 1)                 11        
-                                                                 
+ text_vectorization_1 (TextV  (None, 30)               0
+ ectorization)
+
+ embedding_2 (Embedding)     (None, 30, 100)           1000000
+
+ flatten_2 (Flatten)         (None, 3000)              0
+
+ dense_6 (Dense)             (None, 100)               300100
+
+ dropout_2 (Dropout)         (None, 100)               0
+
+ dense_7 (Dense)             (None, 10)                1010
+
+ dense_8 (Dense)             (None, 1)                 11
+
 =================================================================
 Total params: 1,301,121
 Trainable params: 1,301,121
@@ -15902,7 +15902,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15956,7 +15956,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16151,27 +16151,27 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;ffnn_embedding_on_bert&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- embedding_1 (Embedding)     (None, 164, 100)          3026600   
-                                                                 
- flatten_1 (Flatten)         (None, 16400)             0         
-                                                                 
- dense_3 (Dense)             (None, 100)               1640100   
-                                                                 
- dropout_1 (Dropout)         (None, 100)               0         
-                                                                 
- dense_4 (Dense)             (None, 10)                1010      
-                                                                 
- dense_5 (Dense)             (None, 1)                 11        
-                                                                 
+ embedding_1 (Embedding)     (None, 164, 100)          3026600
+
+ flatten_1 (Flatten)         (None, 16400)             0
+
+ dense_3 (Dense)             (None, 100)               1640100
+
+ dropout_1 (Dropout)         (None, 100)               0
+
+ dense_4 (Dense)             (None, 10)                1010
+
+ dense_5 (Dense)             (None, 1)                 11
+
 =================================================================
 Total params: 4,667,721
 Trainable params: 4,667,721
@@ -16223,7 +16223,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16235,7 +16235,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16289,7 +16289,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16472,7 +16472,7 @@ The goal of such layers is to keep the information of the previous steps of the 
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16494,7 +16494,7 @@ INFO:tensorflow:Assets written to: ../results/rnn_on_encoded/assets
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16506,30 +16506,30 @@ INFO:tensorflow:Assets written to: ../results/rnn_on_encoded/assets
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;rnn_on_encoded&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_4 (TextV  (None, 30)               0         
- ectorization)                                                   
-                                                                 
- embedding_3 (Embedding)     (None, 30, 100)           1000000   
-                                                                 
- simple_rnn_2 (SimpleRNN)    (None, 100)               20100     
-                                                                 
- dense_9 (Dense)             (None, 100)               10100     
-                                                                 
- dropout_3 (Dropout)         (None, 100)               0         
-                                                                 
- dense_10 (Dense)            (None, 10)                1010      
-                                                                 
- dense_11 (Dense)            (None, 1)                 11        
-                                                                 
+ text_vectorization_4 (TextV  (None, 30)               0
+ ectorization)
+
+ embedding_3 (Embedding)     (None, 30, 100)           1000000
+
+ simple_rnn_2 (SimpleRNN)    (None, 100)               20100
+
+ dense_9 (Dense)             (None, 100)               10100
+
+ dropout_3 (Dropout)         (None, 100)               0
+
+ dense_10 (Dense)            (None, 10)                1010
+
+ dense_11 (Dense)            (None, 1)                 11
+
 =================================================================
 Total params: 1,031,221
 Trainable params: 1,031,221
@@ -16581,7 +16581,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16635,7 +16635,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16814,7 +16814,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16841,7 +16841,7 @@ Epoch 8/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16853,7 +16853,7 @@ Epoch 8/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16865,7 +16865,7 @@ Epoch 8/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16878,30 +16878,30 @@ WARNING:absl:&lt;keras.layers.recurrent.LSTMCell object at 0x7f6d7eebf2b0&gt; ha
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;lstm_on_embedded&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_6 (TextV  (None, 30)               0         
- ectorization)                                                   
-                                                                 
- embedding_5 (Embedding)     (None, 30, 100)           1000000   
-                                                                 
- lstm (LSTM)                 (None, 100)               80400     
-                                                                 
- dense_15 (Dense)            (None, 100)               10100     
-                                                                 
- dropout_5 (Dropout)         (None, 100)               0         
-                                                                 
- dense_16 (Dense)            (None, 10)                1010      
-                                                                 
- dense_17 (Dense)            (None, 1)                 11        
-                                                                 
+ text_vectorization_6 (TextV  (None, 30)               0
+ ectorization)
+
+ embedding_5 (Embedding)     (None, 30, 100)           1000000
+
+ lstm (LSTM)                 (None, 100)               80400
+
+ dense_15 (Dense)            (None, 100)               10100
+
+ dropout_5 (Dropout)         (None, 100)               0
+
+ dense_16 (Dense)            (None, 10)                1010
+
+ dense_17 (Dense)            (None, 1)                 11
+
 =================================================================
 Total params: 1,091,521
 Trainable params: 1,091,521
@@ -16953,7 +16953,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17007,7 +17007,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17188,7 +17188,7 @@ The goal of such layers is to use information from past (backwards) and future (
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17209,7 +17209,7 @@ Epoch 5/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17221,7 +17221,7 @@ Epoch 5/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17233,7 +17233,7 @@ Epoch 5/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17247,31 +17247,31 @@ WARNING:absl:&lt;keras.layers.recurrent.LSTMCell object at 0x7f6d7b6b2c10&gt; ha
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;bidirectional_lstm_on_embedded&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_7 (TextV  (None, 30)               0         
- ectorization)                                                   
-                                                                 
- embedding_6 (Embedding)     (None, 30, 100)           1000000   
-                                                                 
- bidirectional (Bidirectiona  (None, 200)              160800    
- l)                                                              
-                                                                 
- dense_18 (Dense)            (None, 100)               20100     
-                                                                 
- dropout_6 (Dropout)         (None, 100)               0         
-                                                                 
- dense_19 (Dense)            (None, 10)                1010      
-                                                                 
- dense_20 (Dense)            (None, 1)                 11        
-                                                                 
+ text_vectorization_7 (TextV  (None, 30)               0
+ ectorization)
+
+ embedding_6 (Embedding)     (None, 30, 100)           1000000
+
+ bidirectional (Bidirectiona  (None, 200)              160800
+ l)
+
+ dense_18 (Dense)            (None, 100)               20100
+
+ dropout_6 (Dropout)         (None, 100)               0
+
+ dense_19 (Dense)            (None, 10)                1010
+
+ dense_20 (Dense)            (None, 1)                 11
+
 =================================================================
 Total params: 1,181,921
 Trainable params: 1,181,921
@@ -17323,7 +17323,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17377,7 +17377,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17558,7 +17558,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17581,7 +17581,7 @@ Epoch 6/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17593,7 +17593,7 @@ Epoch 6/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17605,7 +17605,7 @@ Epoch 6/10
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17621,34 +17621,34 @@ WARNING:absl:&lt;keras.layers.recurrent.LSTMCell object at 0x7f6d7d5fdbb0&gt; ha
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Model: &#34;bidirectional_lstm_with_return_sequences_on_embedded&#34;
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param #
 =================================================================
- text_vectorization_8 (TextV  (None, 30)               0         
- ectorization)                                                   
-                                                                 
- embedding_7 (Embedding)     (None, 30, 100)           1000000   
-                                                                 
- bidirectional_1 (Bidirectio  (None, 30, 200)          160800    
- nal)                                                            
-                                                                 
- bidirectional_2 (Bidirectio  (None, 200)              240800    
- nal)                                                            
-                                                                 
- dense_21 (Dense)            (None, 100)               20100     
-                                                                 
- dropout_7 (Dropout)         (None, 100)               0         
-                                                                 
- dense_22 (Dense)            (None, 10)                1010      
-                                                                 
- dense_23 (Dense)            (None, 1)                 11        
-                                                                 
+ text_vectorization_8 (TextV  (None, 30)               0
+ ectorization)
+
+ embedding_7 (Embedding)     (None, 30, 100)           1000000
+
+ bidirectional_1 (Bidirectio  (None, 30, 200)          160800
+ nal)
+
+ bidirectional_2 (Bidirectio  (None, 200)              240800
+ nal)
+
+ dense_21 (Dense)            (None, 100)               20100
+
+ dropout_7 (Dropout)         (None, 100)               0
+
+ dense_22 (Dense)            (None, 10)                1010
+
+ dense_23 (Dense)            (None, 1)                 11
+
 =================================================================
 Total params: 1,422,721
 Trainable params: 1,422,721
@@ -17700,7 +17700,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17754,7 +17754,7 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 

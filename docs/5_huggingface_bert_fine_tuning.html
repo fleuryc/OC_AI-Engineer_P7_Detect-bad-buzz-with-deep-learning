@@ -4574,7 +4574,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-  
+
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -14261,17 +14261,17 @@ a.anchor-link {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 },
                 "HTML-CSS": {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14283,7 +14283,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="HuggingFace-:-BERT-Fine-tuning">HuggingFace : BERT Fine-tuning<a class="anchor-link" href="#HuggingFace-:-BERT-Fine-tuning">&#182;</a></h1><p>In this notebook, we will fine-tune a pre-trained model to predict the sentiment of the tweets : <a href="https://huggingface.co/docs/transformers/custom_datasets#finetune-with-tensorflow">Fine-tune with TensorFlow</a>.</p>
-<p>We will compare this pre-trained local model to the baseline model from <a href="1_baseline.ipynb">1_baseline.ipynb</a>.</p>
+<p>We will compare this pre-trained local model to the baseline model from <a href="1_baseline.html">1_baseline.ipynb</a>.</p>
 <p>In order to use GPU for training, we used Kaggle environment.</p>
 <h2 id="Load-project-modules-and-data">Load project modules and data<a class="anchor-link" href="#Load-project-modules-and-data">&#182;</a></h2><p>We will use basic python packages, and the <a href="https://huggingface.co/docs/transformers/quicktour">HuggingFace</a> package to predict text sentiment.</p>
 
@@ -14408,7 +14408,7 @@ a.anchor-link {
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14430,7 +14430,7 @@ var element = document.getElementById('d89585a0-c271-4825-aecb-72122e02709e');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14452,7 +14452,7 @@ var element = document.getElementById('ea8598db-a719-4d02-a53e-e5840464e364');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14474,7 +14474,7 @@ var element = document.getElementById('d9daf062-08bb-4a28-b88c-b650c851df5b');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14496,7 +14496,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14611,7 +14611,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14623,7 +14623,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14645,7 +14645,7 @@ var element = document.getElementById('f3ed26d3-cae6-463b-9f5f-ce39bae6bcd6');
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14672,7 +14672,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14685,7 +14685,7 @@ Fitting model...
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14697,7 +14697,7 @@ Fitting model...
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -14712,13 +14712,13 @@ Epoch 4/10
 80000/80000 [==============================] - 5756s 72ms/step - loss: 0.4057 - binary_accuracy: 0.8482 - val_loss: 0.4579 - val_binary_accuracy: 0.8421
 Model: &#34;tf_bert_for_sequence_classification&#34;
 _________________________________________________________________
-Layer (type)                 Output Shape              Param #   
+Layer (type)                 Output Shape              Param #
 =================================================================
-bert (TFBertMainLayer)       multiple                  109482240 
+bert (TFBertMainLayer)       multiple                  109482240
 _________________________________________________________________
-dropout_37 (Dropout)         multiple                  0         
+dropout_37 (Dropout)         multiple                  0
 _________________________________________________________________
-classifier (Dense)           multiple                  1538      
+classifier (Dense)           multiple                  1538
 =================================================================
 Total params: 109,483,778
 Trainable params: 109,483,778
@@ -14791,12 +14791,12 @@ None
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Confusion Matrix : 
+<pre>Confusion Matrix :
 [[17631 82369]
  [  415 99585]]
 ROC AUC score :  0.883
@@ -14837,7 +14837,7 @@ Average Precision score :  0.822
 
 <div class="jp-OutputArea-child">
 
-    
+
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
