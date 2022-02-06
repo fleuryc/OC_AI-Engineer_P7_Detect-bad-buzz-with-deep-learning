@@ -14353,7 +14353,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Text-preprocessing">Text preprocessing<a class="anchor-link" href="#Text-preprocessing">&#182;</a></h2><p>The text is transformed to tensors with <a href="https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizerFast">BertTokenizerFast</a>.</p>
+<h2 id="Text-preprocessing">Text preprocessing<a class="anchor-link" href="#Text-preprocessing">&#182;</a></h2><p>The text is transformed to tensors with <a href="https://huggingface.co/docs/transformers/master/en/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a>.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14363,12 +14363,12 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tokenizers, Stemmers and Lemmatizers</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertTokenizerFast</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span>
 
-<span class="n">BERT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;bert-base-uncased&quot;</span>
+<span class="n">BERT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;bert-base-uncased&quot;</span>  <span class="c1"># &quot;vinai/bertweet-base&quot;</span>
 <span class="n">MAX_LENGTH</span> <span class="o">=</span> <span class="mi">50</span>
 
-<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizerFast</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BERT_MODEL</span><span class="p">,</span> <span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BERT_MODEL</span><span class="p">,</span> <span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">input_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
     <span class="p">[</span>
@@ -14417,9 +14417,9 @@ a.anchor-link {
 
 
 
-<div id="d89585a0-c271-4825-aecb-72122e02709e" class="jupyter-widgets jp-OutputArea-output ">
+<div id="a4dc085b-9450-4e78-bf94-c32d730bd256" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('d89585a0-c271-4825-aecb-72122e02709e');
+var element = document.getElementById('a4dc085b-9450-4e78-bf94-c32d730bd256');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "42168ea73e894551b018701baae5a883", "version_major": 2, "version_minor": 0}
@@ -14439,9 +14439,9 @@ var element = document.getElementById('d89585a0-c271-4825-aecb-72122e02709e');
 
 
 
-<div id="ea8598db-a719-4d02-a53e-e5840464e364" class="jupyter-widgets jp-OutputArea-output ">
+<div id="cad63871-606f-4b18-9107-16bd77f3afb2" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('ea8598db-a719-4d02-a53e-e5840464e364');
+var element = document.getElementById('cad63871-606f-4b18-9107-16bd77f3afb2');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "1d20835ad87540cca40dec45fde5c9d5", "version_major": 2, "version_minor": 0}
@@ -14461,9 +14461,9 @@ var element = document.getElementById('ea8598db-a719-4d02-a53e-e5840464e364');
 
 
 
-<div id="d9daf062-08bb-4a28-b88c-b650c851df5b" class="jupyter-widgets jp-OutputArea-output ">
+<div id="85c67f66-d68b-48a6-91aa-b12d5425245f" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('d9daf062-08bb-4a28-b88c-b650c851df5b');
+var element = document.getElementById('85c67f66-d68b-48a6-91aa-b12d5425245f');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "31fe34b645cf4205b40f88f1971a185a", "version_major": 2, "version_minor": 0}
@@ -14483,9 +14483,9 @@ var element = document.getElementById('d9daf062-08bb-4a28-b88c-b650c851df5b');
 
 
 
-<div id="d787eaa6-b3ec-4911-a281-a79ae813e4c5" class="jupyter-widgets jp-OutputArea-output ">
+<div id="8b75bf6b-8e1d-4d01-a7dc-fe8df1b17f6d" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
+var element = document.getElementById('8b75bf6b-8e1d-4d01-a7dc-fe8df1b17f6d');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "47ce818ccdb448beabd6b1eed1bf2c34", "version_major": 2, "version_minor": 0}
@@ -14553,7 +14553,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Model-fine-tuning">Model fine-tuning<a class="anchor-link" href="#Model-fine-tuning">&#182;</a></h2><p>We are going to fit the <a href="https://huggingface.co/docs/transformers/model_doc/bert#transformers.TFBertForSequenceClassification">TFBertForSequenceClassification</a> in order to adapt it to our dataset.</p>
+<h2 id="Model-fine-tuning">Model fine-tuning<a class="anchor-link" href="#Model-fine-tuning">&#182;</a></h2><p>We are going to fit the <a href="https://huggingface.co/docs/transformers/master/en/model_doc/auto#transformers.TFAutoModelForSequenceClassification">TFAutoModelForSequenceClassification</a> in order to adapt it to our dataset.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14562,7 +14562,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">TFBertForSequenceClassification</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">TFAutoModelForSequenceClassification</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">BinaryCrossentropy</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
@@ -14571,7 +14571,7 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 
 <span class="c1"># Define NN model</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Defining model...&quot;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">TFBertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BERT_MODEL</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">TFAutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BERT_MODEL</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># compile NN network</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Compiling model...&quot;</span><span class="p">)</span>
@@ -14632,9 +14632,9 @@ var element = document.getElementById('d787eaa6-b3ec-4911-a281-a79ae813e4c5');
 
 
 
-<div id="f3ed26d3-cae6-463b-9f5f-ce39bae6bcd6" class="jupyter-widgets jp-OutputArea-output ">
+<div id="2e471379-4f18-452e-a45f-4d17a2cfea47" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('f3ed26d3-cae6-463b-9f5f-ce39bae6bcd6');
+var element = document.getElementById('2e471379-4f18-452e-a45f-4d17a2cfea47');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "47490a7132394557b65a89cb3e99d830", "version_major": 2, "version_minor": 0}
@@ -14736,8 +14736,9 @@ None
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Results-and-evaluation">Results and evaluation<a class="anchor-link" href="#Results-and-evaluation">&#182;</a></h2><p>The model has been trained for ~9h on 1M on Kaggle with GPU accelerator : <a href="https://www.kaggle.com/clementfleury/oc-p7-bert-fine-tuning/log?scriptVersionId=86383932">oc-p7_bert_fine-tuning</a>.</p>
-<p>The model has more than 100M parameters, so the 1M tweets are probably not enough to train the model correctly.</p>
+<h2 id="Results-and-evaluation">Results and evaluation<a class="anchor-link" href="#Results-and-evaluation">&#182;</a></h2><p>We tried to fine-tune two different models, and we will compare the results : the standard <a href="https://huggingface.co/docs/transformers/master/en/model_doc/bert">BERT</a> model, and the more adapted to english tweets <a href="https://huggingface.co/docs/transformers/master/en/model_doc/bertweet">BERTweet</a> model.</p>
+<h3 id="Vanilla-BERT-model-:-bert-base-uncased">Vanilla BERT model : <code>bert-base-uncased</code><a class="anchor-link" href="#Vanilla-BERT-model-:-bert-base-uncased">&#182;</a></h3><p>The model has been trained for ~6.5h on 1M on Kaggle with GPU accelerator : <a href="https://www.kaggle.com/clementfleury/oc-p7-bert-fine-tuning/log?scriptVersionId=86383932">oc-p7_bert_fine-tuning - Version 8 - 8-BERT-1M</a>.</p>
+<p>The model has more than 109M parameters, so the 1M tweets are probably not enough to train the model correctly.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14862,6 +14863,32 @@ Predicted sentiment :  0.436
 <li>ROC AUC = 0.88 (baseline = 0.74 , +19%)</li>
 </ul>
 <p>But this model is really very biased towards the <em>POSITIVE</em> class : it predicted <strong>9.1 times</strong> (baseline = 35% , -89%) more <em>POSITIVE</em> (181954) messages than <em>NEGATIVE</em> (18046).</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="English-tweets-adapted-model-:-vinai/bertweet-base">English tweets adapted model : <code>vinai/bertweet-base</code><a class="anchor-link" href="#English-tweets-adapted-model-:-vinai/bertweet-base">&#182;</a></h3><p>The model has been trained for ~11h on 1M on Kaggle with GPU accelerator : <a href="https://www.kaggle.com/clementfleury/oc-p7-bert-fine-tuning/log?scriptVersionId=87009060">oc-p7_bert_fine-tuning - Version 10 - 10-BERTweet-1M</a>.</p>
+<p>The model has more than 134M parameters, so the 1M tweets are probably not enough to train the model correctly.</p>
+<p>This run failed in the end because it reached Kaggle's maximum execution time, but the results are still available in the logs :</p>
+
+<pre><code>log
+Confusion Matrix :
+[[79351 20649]
+[10016 89984]]
+
+ROC AUC score : 0.915
+Average Precision score : 0.901
+
+Text : "@Retrievergirl Clapton's is certainly one of the worlds greatest guitarists , and for me closely followed by Brian May"
+True sentiment : 1
+Predicted sentiment : 0.542</code></pre>
+<p>The performances on the test dataset are much better than the baseline model :</p>
+<ul>
+<li>Average Precision = 0.901 (baseline = 0.73 , +23%)</li>
+<li>ROC AUC = 0.915 (baseline = 0.74 , +24%)</li>
+</ul>
+<p>But this model is still quite biased towards the <em>POSITIVE</em> class : it predicted 23% (baseline = 35% , -35%) more <em>POSITIVE</em> (110633) messages than <em>NEGATIVE</em> (89367).</p>
 
 </div>
 </div>
