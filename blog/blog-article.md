@@ -36,6 +36,12 @@ All the code is available on [GitHub].
     - [Target variable](#target-variable)
     - [Text variable](#text-variable)
       - [Length](#length)
+      - [Words importance](#words-importance)
+      - [Topic modeling](#topic-modeling)
+  - [AI as a Service (AIaaS) : [Azure Cognitive Services - Text Analytics]](#ai-as-a-service-aiaas--azure-cognitive-services---text-analytics)
+  - [AzureML Studio's [Automated ML]](#azureml-studios-automated-ml)
+  - [AzureML Studio's [Designer]](#azureml-studios-designer)
+  - [AzureML Studio's [Notebooks]](#azureml-studios-notebooks)
 
 ---
 
