@@ -3,15 +3,15 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/bb259c87a77f4beab13c48f4d5b59afe)](https://www.codacy.com/gh/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/dashboard)
 
--   [Air Paradis : Detect  bad buzz with deep learning](#air-paradis--detect--bad-buzz-with-deep-learning)
-    -   [Installation](#installation)
-        -   [Prerequisites](#prerequisites)
-        -   [Virtual environment](#virtual-environment)
-        -   [Dependencies](#dependencies)
-    -   [Usage](#usage)
-        -   [Run Notebook](#run-notebook)
-        -   [Quality Assurance](#quality-assurance)
-    -   [Troubleshooting](#troubleshooting)
+- [Air Paradis : Detect  bad buzz with deep learning](#air-paradis--detect--bad-buzz-with-deep-learning)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Virtual environment](#virtual-environment)
+    - [Dependencies](#dependencies)
+  - [Usage](#usage)
+    - [Run Notebook](#run-notebook)
+    - [Quality Assurance](#quality-assurance)
+  - [Troubleshooting](#troubleshooting)
 
 * * *
 
@@ -24,8 +24,8 @@ Goal : use Azure ML and NLP techniques (Gensim, Bert, Keras, ...), to perform se
 You can see the results here :
 
 -   [Presentation](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/index.html)
-
--   [Notebook : HTML page with interactive plots](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/notebook.html)
+-   [Blog Article : Comparing Azure Tools for Sentiment Analysis](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/blog/blog-article.md "Comparing Azure Tools for Sentiment Analysis")
+-   [Notebook : HTML page with interactive plots](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/notebook.html "HTML page with interactive plots")
 
 ## Installation
 
