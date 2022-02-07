@@ -27,42 +27,20 @@ To do this, you need to monitor what people say on the Internet and be able to d
 
 In this post, we are going to cover different **Azure** services that we can use to predict the sentiment of **tweets**.
 
+***Spoiler*** : Each Azure service has its own purpose and offers more or less simplicity at the cost of control over the model.
+
+
 All the code is available on [GitHub].
 
----
+## Table of content
 
-- [Comparing Azure Tools for Sentiment Analysis](#comparing-azure-tools-for-sentiment-analysis)
-  - [Exploratory Data Analysis](#exploratory-data-analysis)
-    - [Target variable](#target-variable)
-    - [Text variable](#text-variable)
-      - [Length](#length)
-      - [Words importance](#words-importance)
-      - [Topic modeling](#topic-modeling)
-  - [Protocol](#protocol)
-  - [AI as a Service](#ai-as-a-service)
-    - [Data preparation](#data-preparation)
-    - [Model selection](#model-selection)
-    - [Model training](#model-training)
-    - [Classification results](#classification-results)
-    - [Pros](#pros)
-    - [Cons](#cons)
-  - [Automated ML](#automated-ml)
-    - [Data preparation](#data-preparation-1)
-    - [Model selection](#model-selection-1)
-    - [Model training](#model-training-1)
-    - [Classification results](#classification-results-1)
-    - [Pros](#pros-1)
-    - [Cons](#cons-1)
-  - [Designer](#designer)
-    - [Data preparation](#data-preparation-2)
-    - [Model selection](#model-selection-2)
-    - [Model training](#model-training-2)
-    - [Classification results](#classification-results-2)
-    - [Pros](#pros-2)
-    - [Cons](#cons-2)
-  - [AzureML Studio's [Notebooks]](#azureml-studios-notebooks)
-
----
+- [Exploratory Data Analysis](#exploratory-data-analysis)
+- [Protocol](#protocol)
+- [AI as a Service](#ai-as-a-service)
+- [Automated ML](#automated-ml)
+- [Designer](#designer)
+- [Notebooks](#notebooks)
+- [Conclusion](#conclusion)
 
 ## Exploratory Data Analysis
 
@@ -226,15 +204,15 @@ Each model created by the Automated ML service is trained automatically, nothing
 
 The service has tested and compared multiple algorithms before selecting the best one :
 
-![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png)
+![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png "AzureML - AutomatedML - 10h on GPU - models")
 
 The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model :
 
-![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png)
+![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png "Best Model")
 
-| Confusion Matrix                                                           | Precision Recall Curve (AP = 0.942)                                              | ROC Curve (AUC = 0.942)                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| ![Confusion Matrix](img/azureml_automated_ml_10h_gpu_confusion_matrix.png) | ![Precision Recall Curve](img/azureml_automated_ml_10h_gpu_precision_recall.png) | ![ROC Curve](img/azureml_automated_ml_10h_gpu_ROC.png) |
+| Confusion Matrix                                                                              | Precision Recall Curve (AP = 0.942)                                                                       | ROC Curve (AUC = 0.942)                                            |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| ![Confusion Matrix](img/azureml_automated_ml_10h_gpu_confusion_matrix.png "Confusion Matrix") | ![Precision Recall Curve](img/azureml_automated_ml_10h_gpu_precision_recall.png "Precision Recall Curve") | ![ROC Curve](img/azureml_automated_ml_10h_gpu_ROC.png "ROC Curve") |
 
 - **Accuracy** : 0.867137
 - **F1** : 0.867608
@@ -266,7 +244,8 @@ In this section, we are going to evaluate AzureML Studio's [Designer].
 Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Designer - train a no-code regression model].
 
 This is what our pipeline looks like :
-![AzureML Designer - Pipeline](img/azureml_designer_pipeline.png)
+
+![AzureML Designer - Pipeline](img/azureml_designer_pipeline.png "AzureML Designer - Pipeline")
 
 ### Data preparation
 
@@ -296,10 +275,10 @@ The models are scored thanks to the [Score Model] component, and the results are
 
 The test dataset goes through the same text pre-processing and vectorization steps as the training dataset, before being used to test the model.
 
-| Model           | Confusion Matrix                                                               | AP    | Precision Recall Curve                                                                     | ROC AUC | ROC Curve                                                        |
-| --------------- | ------------------------------------------------------------------------------ | ----- | ------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------- |
-| Feature Hashing | ![Confusion Matrix](img/azureml_designer_feature_hashing_confusion_matrix.png) | 0.663 | ![Precision Recall Curve](img/azureml_designer_feature_hashing_precision_recall_curve.png) | 0.726   | ![ROC Curve](img/azureml_designer_feature_hashing_ROC_curve.png) |
-| N-Gram Features | ![Confusion Matrix](img/azureml_designer_n-gram_confusion_matrix.png)          | 0.723 | ![Precision Recall Curve](img/azureml_designer_n-gram_precision_recall_curve.png)          | 0.811   | ![ROC Curve](img/azureml_designer_n-gram_ROC_curve.png)          |
+| Model           | Confusion Matrix                                                                                  | AP    | Precision Recall Curve                                                                                              | ROC AUC | ROC Curve                                                                    |
+| --------------- | ------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
+| Feature Hashing | ![Confusion Matrix](img/azureml_designer_feature_hashing_confusion_matrix.png "Confusion Matrix") | 0.663 | ![Precision Recall Curve](img/azureml_designer_feature_hashing_precision_recall_curve.png "Precision Recall Curve") | 0.726   | ![ROC Curve](img/azureml_designer_feature_hashing_ROC_curve.png "ROC Curve") |
+| N-Gram Features | ![Confusion Matrix](img/azureml_designer_n-gram_confusion_matrix.png "Confusion Matrix")          | 0.723 | ![Precision Recall Curve](img/azureml_designer_n-gram_precision_recall_curve.png "Precision Recall Curve")          | 0.811   | ![ROC Curve](img/azureml_designer_n-gram_ROC_curve.png "ROC Curve")          |
 
 We can see that the **N-Gram Features** model performs better than the **Feature Hashing** model.
 
@@ -341,9 +320,109 @@ We could have improved the results by :
 - you need to be familiar with drag-and-drop pipeline designing UIs
 - once you are satisfied with your model, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
 
-## AzureML Studio's [Notebooks]
+## Notebooks
 
----
+Complete code available in [9_azureml_notebooks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks.html)
+
+In this section, we are going to evaluate AzureML Studio's [Notebooks].
+
+Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Train and deploy an image classification model with an example Jupyter Notebook].
+
+In this experiment, we will build, train, deploy and test a custom Deep Neural Network (DNN) to expose a REST API for our tweets sentiment prediction.
+
+The code deployed in the Notebooks environment consists of :
+
+- [main.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/main.html) : this is the main Notebook where our data is prepared, our model is built, trained, deployed and tested
+  - **Prepare** : prepare the data for our model
+  - **Train** : we use the best model from [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) : _Stacked Bidirectional-LSTM layers on Embedded text_
+  - **Deploy** : we deploy the model in an ACI (Azure Compute Instance), which will expose a REST API to query our model for inference
+  - **Test** : we run a POST query to check that our model works
+- [score.py](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/notebooks/9_azureml_notebooks/score.py) : this is the code deployed in the ACI for inference
+  - `init()` : load the registered model
+  - `run(raw_data)` : process data sent to the REST API and predict the sentiment with the loaded model
+- [conda_dependencies.yml](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/notebooks/9_azureml_notebooks/conda_dependencies.yml) : this defines the dependencies that must be installed in the Inference environment
+
+This is what our model looks like :
+
+![AzureML Notebooks - Model](img/azureml_notebooks_model.png "AzureML Notebooks - Model")
+
+### Data preparation
+
+This part is implemented in the [main.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/main.html) notebook :
+
+- the data is loaded from the _Dataset_ in the _Workspace_ thanks to the `azureml` library
+- no need for data preparation, since the `text_vectorization` and `embedding` layers of our DNN will do the job.
+
+### Model selection
+
+In this experiment, we don't do any model selection.
+The selected model is the best of several Artificial Neural Network (ANN) models compared in the [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) notebook.
+
+### Model training
+
+We simply train our model on the _train_ dataset with Keras `fit()` method.
+
+We log the training run with _MLflow_ (cf. [Track ML models with MLflow and Azure Machine Learning]).
+This allows to view the metrics evolution during training epochs in AzureML Studio :
+
+![Notebooks train metrics](img/azureml_notebooks_train_metrics.png "Notebooks train metrics")
+
+### Model deployment
+
+Once trained, registering our model in our _Workspace_ with _MLflow_ also allows us to easily deploy our model as a REST API in Azure (cf. [Deploy MLflow models as Azure web services])
+
+To achieve that, we use `azureml` library to :
+
+- create an [Environment] from our `conda_dependencies.yml` file
+- fetch our trained model from our _Workspace_
+- create an [ACI] web service
+- create an _Inference_ configuration from our `score.py` file
+- actually **deploy** our model in the created _ACI_ environment, with the given _Inference_ configuration.
+
+Once the inference environment is started, we can send the requests to the endpoint. The `run(raw_data)` will process the input text and predict its sentiment with our model.
+
+### Classification results
+
+The performances of this model are computed in the [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) notebook.
+
+![Notebooks results](img/azureml_notebooks_results.png "Notebooks results")
+
+- **Accuracy** : 0.827450
+- **F1** : 0.825740
+- **Precision** : 0.834005
+- **Recall** or **Sensitivity** : 0.817638
+- **Specificity** : 0.837263
+- **Average Precision** : 0.910
+- **ROC AUC** : 0.910
+
+The results here are not really relevant to our post, even if they are quite good.
+The goal was to demonstrate the use of AzureML Notebooks and how to deploy a model in production.
+
+### Pros
+
+- the model is actually fitted to our domain data
+- you can easily version your code, and a peer can easily review it
+- it is possible to view the metrics evolution during training
+- this method offers the same flexibility, control and developer experience as coding in JupyterLab, with the addition :
+  - to be able to adapt the available ressources (add more CPU, GPU disk or memory)
+  - to be fully integrated in Azure, thus allowing to easily deploy models (cf. [Deploy machine learning models to Azure]) and view experiments results in AzureML Studio
+
+### Cons
+
+- this doesn't find the best model for you
+- you need to have Data Science and Machine Learning experience to build your model
+- once you are satisfied with your model, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
+
+## Conclusion
+
+In this article, we have seen :
+
+- how to very easily **set-up an AI serice** using _Azure Cognitive Services_ with zero techical knowlege
+- how to very easily **create a very performant prediction model** using _AzureML Automated ML_ with no Data Science or Machine Learning knowledge (but a good understanding of Azure Studio and AutoML)
+- how to **build a data processing and model training and evaluation pipeline** using _AzureML Designer_ with no coding skills (but a good knowledge of Data Science and Machine Learning)
+- how to **develop, train and deploy in production** a custom model using _AzureML Notebooks_
+
+Each AzureML service has its own purpose and offers more or less simplicity at the cost of control over the model.
 
 [nlp]: https://en.wikipedia.org/wiki/Natural_language_processing "Natural Language Processing"
 [pr]: https://en.wikipedia.org/wiki/Public_relations "Public Relations"
@@ -360,8 +439,8 @@ We could have improved the results by :
 [install and run sentiment analysis containers]: https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/how-to/use-containers "Install and run Sentiment Analysis containers"
 [automated ml]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml "Azure Studio Automated ML"
 [tutorial: train a classification model with no-code automl in the azure machine learning studio]: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-first-experiment-automated-ml "Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio"
-[workspace]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace "Workspace"
-[dataset]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-data#datasets "Dataset"
+[workspace]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace "What is an Azure Machine Learning workspace?"
+[dataset]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-data#datasets "Reference data in storage with datasets"
 [feature engineering]: https://en.wikipedia.org/wiki/Feature_engineering "Feature Engineering"
 [bert integration in automated ml]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-auto-features#bert-integration-in-automated-ml "BERT integration in automated ML"
 [lightgbm]: https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html "LightGBM"
@@ -386,6 +465,12 @@ We could have improved the results by :
 [support vector machine]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-support-vector-machine "Two-Class Support Vector Machine component"
 [tune model hyperparameters]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/tune-model-hyperparameters "Tune Model Hyperparameters"
 [notebooks]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-run-jupyter-notebooks "Azure Studio Notebooks"
+[tutorial: train and deploy an image classification model with an example jupyter notebook]: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-train-deploy-notebook "Tutorial: Train and deploy an image classification model with an example Jupyter Notebook"
+[track ml models with mlflow and azure machine learning]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-mlflow "Track ML models with MLflow and Azure Machine Learning"
+[deploy mlflow models as azure web services]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-mlflow-models "Deploy MLflow models as Azure web services"
+[environment]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-environments "What are Azure Machine Learning environments?"
+[aci]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance "Deploy a model to Azure Container Instances"
+[deploy machine learning models to azure]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where "Deploy machine learning models to Azure"
 [github]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
 [spacy lemmatization]: https://spacy.io/usage/linguistic-features#lemmatization "SpaCy lemmatization"
 [tf-idf]: https://en.wikipedia.org/wiki/Tf%E2%80%93idf "Term frequency - Inverse document frequency"
