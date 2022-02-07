@@ -251,7 +251,105 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 - the AutoML experiment can be expensive (but controlled) : you need to pay for the training and evaluation of many models before the best one is identified
 - once the best model has been identified, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
 
-## AzureML Studio's [Designer]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Designer
+
+Complete code available in [7_azureml_designer.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/7_azureml_designer.html)
+
+In this section, we are going to evaluate AzureML Studio's [Designer].
+
+Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Designer - train a no-code regression model].
+
+### Data preparation
+
+Using the Designer's UI, we created multiple data pre-processing steps :
+
+- [Edit Metadata] : columns renaming
+- [Partition and Sample] : data sampling to reduce the dataset size
+- [Preprocess Text] : text cleaning (special characters removal, stopwords, lowercase, lemmatization, ...)
+- [Split Data] : data splitting into training and test sets
+
+At this stage, we will compare two *text feature extraction* methods :
+
+- [Feature Hashing] : simple convertion of text tokens into a numeric representation
+- [Extract N-Gram Features] : take into account the consecutive tokens
+
+### Model selection
+
+In this experiment, we will only use the simple [Two-Class Logistic Regression].
+
+### Model training
+
+Each model created by the Automated ML service is trained automatically, nothing to do here.
+
+### Classification results
+
+The service has tested and compared multiple algorithms before selecting the best one :
+
+![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png)
+
+The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model :
+
+![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png)
+
+| Confusion Matrix                                                           | Precision Recall Curve (AP = 0.942)                                              | ROC Curve (AUC = 0.942)                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| ![Confusion Matrix](img/azureml_automated_ml_10h_gpu_confusion_matrix.png) | ![Precision Recall Curve](img/azureml_automated_ml_10h_gpu_precision_recall.png) | ![ROC Curve](img/azureml_automated_ml_10h_gpu_ROC.png) |
+
+- **Accuracy** : 0.867137
+- **F1** : 0.867608
+- **Precision** : 0.870689
+- **Recall** or **Sensitivity** : 0.864549
+- **Specificity** : 0.869763
+- **Average Precision** : 0.942
+- **ROC AUC** : 0.942
+
+### Pros
+
+- the classification results are very good
+- the model is very well balanced
+- the model is actually fitted to your domain data
+- no Data Science or Machine Learning experience required, but you must be familiar with using cloud services
+- limited cost : once the best model has been identified, re-training it can be quite fast and in-expensive
+
+### Cons
+
+- the AutoML experiment can be expensive (but controlled) : you need to pay for the training and evaluation of many models before the best one is identified
+- once the best model has been identified, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
 
 ## AzureML Studio's [Notebooks]
 
@@ -279,6 +377,14 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 [lightgbm]: https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html "LightGBM"
 [maxabsscaler]: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html "MaxAbsScaler"
 [designer]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-designer "Azure Studio Designer"
+[tutorial: designer - train a no-code regression model]: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-designer-automobile-price-train-score "Tutorial: Designer - train a no-code regression model"
+[edit metadata]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/edit-metadata "Edit Metadata component"
+[partition and sample]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/partition-and-sample "Partition and Sample component"
+[preprocess text]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/preprocess-text "Preprocess Text"
+[split data]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/split-data "Split Data component"
+[Feature Hashing]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/feature-hashing "Feature Hashing component reference"
+[Extract N-Gram Features]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/extract-n-gram-features-from-text "Extract N-Gram Features from Text component reference"
+[Two-Class Logistic Regression]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-logistic-regression "Two-Class Logistic Regression component"
 [notebooks]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-run-jupyter-notebooks "Azure Studio Notebooks"
 [github]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
 [spacy lemmatization]: https://spacy.io/usage/linguistic-features#lemmatization "SpaCy lemmatization"
