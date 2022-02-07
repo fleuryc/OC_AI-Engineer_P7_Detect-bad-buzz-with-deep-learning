@@ -38,6 +38,7 @@ All the code is available on [GitHub].
       - [Length](#length)
       - [Words importance](#words-importance)
       - [Topic modeling](#topic-modeling)
+  - [Protocol](#protocol)
   - [AI as a Service](#ai-as-a-service)
     - [Data preparation](#data-preparation)
     - [Model selection](#model-selection)
@@ -45,7 +46,13 @@ All the code is available on [GitHub].
     - [Classification results](#classification-results)
     - [Pros](#pros)
     - [Cons](#cons)
-  - [AzureML Studio's [Automated ML]](#azureml-studios-automated-ml)
+  - [Automated ML](#automated-ml)
+    - [Data preparation](#data-preparation-1)
+    - [Model selection](#model-selection-1)
+    - [Model training](#model-training-1)
+    - [Classification results](#classification-results-1)
+    - [Pros](#pros-1)
+    - [Cons](#cons-1)
   - [AzureML Studio's [Designer]](#azureml-studios-designer)
   - [AzureML Studio's [Notebooks]](#azureml-studios-notebooks)
 
@@ -190,19 +197,20 @@ Before using the service, you need to create a [Workspace], as explained in the 
 ### Data preparation
 
 Using a Azure's Automated ML service does not require any data preparation.
-The data has just to be imported in the *Workspace* as a [Dataset].
+The data has just to be imported in the _Workspace_ as a [Dataset].
 
 ### Model selection
 
 This where the magic actually happens.
 
-The Automated ML service will automatically build, train and optimize hyper-parameters of many [Feature Engineering] methods and *classification models*.
+The Automated ML service will automatically build, train and optimize hyper-parameters of many [Feature Engineering] methods and _classification models_.
 
 For this experiment, we chose to use the following options :
-- *Deep Learning Featurization* : **Enabled** (requires GPU capability)
+
+- _Deep Learning Featurization_ : **Enabled** (requires GPU capability)
   - this option is specific to text pre-processing and will integrate a BERT model to extract the embeddings of the words in the text (cf. [BERT integration in automated ML])
-- *Primary metric* : **AUC weighted**
-- *Training job time (hours)* : **10 hours** (in order to limit the cost of this experiment)
+- _Primary metric_ : **AUC weighted**
+- _Training job time (hours)_ : **10 hours** (in order to limit the cost of this experiment)
 
 ### Model training
 
@@ -214,15 +222,12 @@ The service has tested and compared multiple algorithms before selecting the bes
 
 ![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png)
 
-
 The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model :
 
 ![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png)
 
-
-
-| Confusion Matrix | Precision Recall Curve (AP = 0.942) | ROC Curve (AUC = 0.942) |
-|---|---|---|
+| Confusion Matrix                                                           | Precision Recall Curve (AP = 0.942)                                              | ROC Curve (AUC = 0.942)                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | ![Confusion Matrix](img/azureml_automated_ml_10h_gpu_confusion_matrix.png) | ![Precision Recall Curve](img/azureml_automated_ml_10h_gpu_precision_recall.png) | ![ROC Curve](img/azureml_automated_ml_10h_gpu_ROC.png) |
 
 - **Accuracy** : 0.867137
@@ -246,7 +251,6 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 - the AutoML experiment can be expensive (but controlled) : you need to pay for the training and evaluation of many models before the best one is identified
 - once the best model has been identified, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
 
-
 ## AzureML Studio's [Designer]
 
 ## AzureML Studio's [Notebooks]
@@ -267,13 +271,13 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 [opinion mining]: https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/overview#opinion-mining "Opinion Mining"
 [install and run sentiment analysis containers]: https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/how-to/use-containers "Install and run Sentiment Analysis containers"
 [automated ml]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml "Azure Studio Automated ML"
-[Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio]: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-first-experiment-automated-ml "Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio"
-[Workspace]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace "Workspace"
-[Dataset]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-data#datasets "Dataset"
-[Feature Engineering]: https://en.wikipedia.org/wiki/Feature_engineering "Feature Engineering"
-[BERT integration in automated ML]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-auto-features#bert-integration-in-automated-ml "BERT integration in automated ML"
-[LightGBM]: https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html "LightGBM"
-[MaxAbsScaler]: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html "MaxAbsScaler"
+[tutorial: train a classification model with no-code automl in the azure machine learning studio]: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-first-experiment-automated-ml "Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio"
+[workspace]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace "Workspace"
+[dataset]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-data#datasets "Dataset"
+[feature engineering]: https://en.wikipedia.org/wiki/Feature_engineering "Feature Engineering"
+[bert integration in automated ml]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-auto-features#bert-integration-in-automated-ml "BERT integration in automated ML"
+[lightgbm]: https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html "LightGBM"
+[maxabsscaler]: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html "MaxAbsScaler"
 [designer]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-designer "Azure Studio Designer"
 [notebooks]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-run-jupyter-notebooks "Azure Studio Notebooks"
 [github]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
