@@ -53,7 +53,13 @@ All the code is available on [GitHub].
     - [Classification results](#classification-results-1)
     - [Pros](#pros-1)
     - [Cons](#cons-1)
-  - [AzureML Studio's [Designer]](#azureml-studios-designer)
+  - [Designer](#designer)
+    - [Data preparation](#data-preparation-2)
+    - [Model selection](#model-selection-2)
+    - [Model training](#model-training-2)
+    - [Classification results](#classification-results-2)
+    - [Pros](#pros-2)
+    - [Cons](#cons-2)
   - [AzureML Studio's [Notebooks]](#azureml-studios-notebooks)
 
 ---
@@ -242,7 +248,7 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 
 - the classification results are very good
 - the model is very well balanced
-- the model is actually fitted to your domain data
+- the model is actually fitted to our domain data
 - no Data Science or Machine Learning experience required, but you must be familiar with using cloud services
 - limited cost : once the best model has been identified, re-training it can be quite fast and in-expensive
 
@@ -250,41 +256,6 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 
 - the AutoML experiment can be expensive (but controlled) : you need to pay for the training and evaluation of many models before the best one is identified
 - once the best model has been identified, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Designer
 
@@ -294,6 +265,9 @@ In this section, we are going to evaluate AzureML Studio's [Designer].
 
 Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Designer - train a no-code regression model].
 
+This is what our pipeline looks like :
+![AzureML Designer - Pipeline](img/azureml_designer_pipeline.png)
+
 ### Data preparation
 
 Using the Designer's UI, we created multiple data pre-processing steps :
@@ -301,9 +275,9 @@ Using the Designer's UI, we created multiple data pre-processing steps :
 - [Edit Metadata] : columns renaming
 - [Partition and Sample] : data sampling to reduce the dataset size
 - [Preprocess Text] : text cleaning (special characters removal, stopwords, lowercase, lemmatization, ...)
-- [Split Data] : data splitting into training and test sets
+- [Split Data] : data splitting into _train_ and _test_ datasets
 
-At this stage, we will compare two *text feature extraction* methods :
+At this stage, we will compare two _text feature extraction_ methods :
 
 - [Feature Hashing] : simple convertion of text tokens into a numeric representation
 - [Extract N-Gram Features] : take into account the consecutive tokens
@@ -314,42 +288,58 @@ In this experiment, we will only use the simple [Two-Class Logistic Regression].
 
 ### Model training
 
-Each model created by the Automated ML service is trained automatically, nothing to do here.
+We simply use the [Train Model component] to train our models on the _train_ dataset.
 
 ### Classification results
 
-The service has tested and compared multiple algorithms before selecting the best one :
+The models are scored thanks to the [Score Model] component, and the results are displayed thanks to the [Evaluate Model] component.
 
-![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png)
+The test dataset goes through the same text pre-processing and vectorization steps as the training dataset, before being used to test the model.
 
-The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model :
+| Model           | Confusion Matrix                                                               | AP    | Precision Recall Curve                                                                     | ROC AUC | ROC Curve                                                        |
+| --------------- | ------------------------------------------------------------------------------ | ----- | ------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------- |
+| Feature Hashing | ![Confusion Matrix](img/azureml_designer_feature_hashing_confusion_matrix.png) | 0.663 | ![Precision Recall Curve](img/azureml_designer_feature_hashing_precision_recall_curve.png) | 0.726   | ![ROC Curve](img/azureml_designer_feature_hashing_ROC_curve.png) |
+| N-Gram Features | ![Confusion Matrix](img/azureml_designer_n-gram_confusion_matrix.png)          | 0.723 | ![Precision Recall Curve](img/azureml_designer_n-gram_precision_recall_curve.png)          | 0.811   | ![ROC Curve](img/azureml_designer_n-gram_ROC_curve.png)          |
 
-![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png)
+We can see that the **N-Gram Features** model performs better than the **Feature Hashing** model.
 
-| Confusion Matrix                                                           | Precision Recall Curve (AP = 0.942)                                              | ROC Curve (AUC = 0.942)                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| ![Confusion Matrix](img/azureml_automated_ml_10h_gpu_confusion_matrix.png) | ![Precision Recall Curve](img/azureml_automated_ml_10h_gpu_precision_recall.png) | ![ROC Curve](img/azureml_automated_ml_10h_gpu_ROC.png) |
+- **Accuracy** : 0.730469
+- **F1** : 0.734819
+- **Precision** : 0.723147
+- **Recall** or **Sensitivity** : 0.746875
+- **Specificity** : 0.714063
+- **Average Precision** : 0.723
+- **ROC AUC** : 0.811
 
-- **Accuracy** : 0.867137
-- **F1** : 0.867608
-- **Precision** : 0.870689
-- **Recall** or **Sensitivity** : 0.864549
-- **Specificity** : 0.869763
-- **Average Precision** : 0.942
-- **ROC AUC** : 0.942
+The results here are not really relevant to our post, since we didn't design a very performant model.
+The goal was to demonstrate the use of the Designer's UI.
+
+We could have improved the results by :
+
+- using more data for training (change the sampling rate)
+- testing different models (cf. [How to select algorithms for Azure Machine Learning]) :
+  - [Averaged Perceptron]
+  - [Boosted Decision Tree]
+  - [Decision Forest]
+  - [Neural Network]
+  - [Support Vector Machine]
+- tuning the hyper-parameters of the model (cf. [Tune Model Hyperparameters])
 
 ### Pros
 
-- the classification results are very good
-- the model is very well balanced
-- the model is actually fitted to your domain data
-- no Data Science or Machine Learning experience required, but you must be familiar with using cloud services
-- limited cost : once the best model has been identified, re-training it can be quite fast and in-expensive
+- the model is actually fitted to our domain data
+- the results of each steps are cached to be reused in a future run (if the previous steps are unchanged)
+  - this accelerates next runs and saves on compute time/money
+- it is possible to view (part of) the results of each step after a run
+  - this helps understand what is actually happening during a step
+- no coding skills required, but Data Science and Machine Learning experience are necesary to design a performant model and you still need to be familiar with cloud services
 
 ### Cons
 
-- the AutoML experiment can be expensive (but controlled) : you need to pay for the training and evaluation of many models before the best one is identified
-- once the best model has been identified, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
+- you need the same amount of trial and error to find the best model as with classic Machine Learning
+- there is no way to easily version your pipeline
+- you need to be familiar with drag-and-drop pipeline designing UIs
+- once you are satisfied with your model, you need to deploy it to be able to use it in production, which requires Cloud Infrastructure skills
 
 ## AzureML Studio's [Notebooks]
 
@@ -382,9 +372,19 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 [partition and sample]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/partition-and-sample "Partition and Sample component"
 [preprocess text]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/preprocess-text "Preprocess Text"
 [split data]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/split-data "Split Data component"
-[Feature Hashing]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/feature-hashing "Feature Hashing component reference"
-[Extract N-Gram Features]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/extract-n-gram-features-from-text "Extract N-Gram Features from Text component reference"
-[Two-Class Logistic Regression]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-logistic-regression "Two-Class Logistic Regression component"
+[feature hashing]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/feature-hashing "Feature Hashing component reference"
+[extract n-gram features]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/extract-n-gram-features-from-text "Extract N-Gram Features from Text component reference"
+[two-class logistic regression]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-logistic-regression "Two-Class Logistic Regression component"
+[train model component]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/train-model "Train Model component"
+[score model]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/score-model "Score Model component"
+[evaluate model]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/evaluate-model "Evaluate Model component"
+[how to select algorithms for azure machine learning]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-select-algorithms "How to select algorithms for Azure Machine Learning"
+[averaged perceptron]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-averaged-perceptron "Two-Class Averaged Perceptron component"
+[boosted decision tree]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-boosted-decision-tree "Two-Class Boosted Decision Tree component"
+[decision forest]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-decision-forest "Two-Class Decision Forest component"
+[neural network]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-neural-network "Two-Class Neural Network component"
+[support vector machine]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/two-class-support-vector-machine "Two-Class Support Vector Machine component"
+[tune model hyperparameters]: https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/tune-model-hyperparameters "Tune Model Hyperparameters"
 [notebooks]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-run-jupyter-notebooks "Azure Studio Notebooks"
 [github]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
 [spacy lemmatization]: https://spacy.io/usage/linguistic-features#lemmatization "SpaCy lemmatization"
