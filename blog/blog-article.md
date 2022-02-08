@@ -1,10 +1,11 @@
 # Comparing Azure Tools for Sentiment Analysis
 
-_Sentiment Analysis_ is one of the most classic [NLP] problems :
+Imagine you are the head of Public Relations for a famous company. You want to prevent all the "bad buzz" that could affect the image of your company.
+To achieve this, you would need to be able to detect _NEGATIVE_ messages on the Internet in order to act before the word spreads.
 
-> Given a sentence, would you say its rather _POSITIVE_ or _NEGATIVE_ ?
+_Sentiment Analysis_ is one of the most classic [NLP] problems : **Given a piece of text, would you say its rather _POSITIVE_ or _NEGATIVE_ ?**
 
-This questions seems so simple at first ! It seems almost natural to our human mind to classify simple sentences :
+It seems almost natural to a human mind to classify simple sentences :
 
 > "I love my friends because they make me happy everyday!" 👍
 
@@ -12,7 +13,7 @@ This questions seems so simple at first ! It seems almost natural to our human m
 
 But not all sentences are so "simple".
 
-> "She had some amazing news to share but nobody to share it with." 🤔
+> "OMG XD ! New LP soooooo sick!" 🤔
 
 There are multiple challenges that can make this task much more difficult :
 
@@ -22,15 +23,11 @@ There are multiple challenges that can make this task much more difficult :
 - **context** : taking a sentence out of its context can completely change its meaning
 - **subjectivity** : different people will interpret the same sentence differently depending on their personal way of thinking
 
-Now, imagine you are the head of [PR] for a famous company. You want to prevent all the "bad buzz" that could affect the image of your company.
-To do this, you need to monitor what people say on the Internet and be able to detect _NEGATIVE_ messages concerning your company in order to act before the word spreads.
+In this article, we are going to cover different **Azure** services that we can use to predict the sentiment of **tweets**.
 
-In this post, we are going to cover different **Azure** services that we can use to predict the sentiment of **tweets**.
+**_Spoiler_** : Each Azure service has its own purpose and offers more or less simplicity at the cost of control over the underlying prediction model.
 
-***Spoiler*** : Each Azure service has its own purpose and offers more or less simplicity at the cost of control over the model.
-
-
-All the code is available on [GitHub].
+_All the code is available in [Air Paradis : Detect bad buzz with deep learning]._
 
 ## Table of content
 
@@ -44,50 +41,69 @@ All the code is available on [GitHub].
 
 ## Exploratory Data Analysis
 
-Complete code available in [notebook.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/notebook.html)
+_Complete code available in [notebook.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/notebook.html)_
 
-In this section, we are going to perform an [EDA] to understand the data and the target variable.
+In this section, we are going to perform an [EDA] to understand the _text_ and _target_ variables.
 
 The data we are going to use is [Kaggle - Sentiment140] dataset :
 
-- 1.6 million tweets : low language quality : many Twitter specific words ("RT", @username, #hashtags, urls, slang, ... )
-- target : binary categorical variable representing the sentiment of the tweet
-  - `0` = negative
-  - `4` = positive
+- **text** : 1.6 million tweets
+  - low language quality : many Twitter specific words ("RT", @username, #hashtags, urls, slang, ... )
+- **target** : binary categorical variable representing the sentiment of the tweet
+  - `0` = _NEGATIVE_
+  - `4` = _POSITIVE_
 
 ### Target variable
 
-The target variable is perfectly balanced.
+Let's have a look at how the _target_ variable is distributed.
+
+The _target_ variable is perfectly **balanced** :
 
 ![Target variable distribution](img/dataset_target-distribution.png "Target variable distribution")
 
 ### Text variable
 
-#### Length
+Let's have a look at what the _text_ variable looks like.
 
-There are no big difference between the _POSITIVE_ and _NEGATIVE_ tweets, but _NEGATIVE_ tweets are slightly longer than POSITIVE tweets.
+Examples :
 
-In both classes, there are two modes : ~45 characters and 138 characters (the maximum allowed at some point).
+> "@SexyLexy54321 I dont wanna look like a clown!! lol I dont have yellow." -- _@LucasLover321_
+
+> "@Yveeeee And try to get me autographs, okay? " -- _@sarahroters_
+
+> "goodnight to everyone live at other side of world it's sunny in here =]" -- _@dizaynBAZ_
+
+#### Text length
+
+_NEGATIVE_ tweets are slightly (not significantly) **longer** than POSITIVE tweets.
+
+In both classes, there are **two modes** :
+
+- _~45 characters_ and _138 characters_ (the maximum allowed at the time the data was extracted) :
 
 ![Text length distribution](img/dataset_text-length-distribution.png "Text length distribution")
 
-There are no big difference between the _POSITIVE_ and _NEGATIVE_ tweets, but _NEGATIVE_ tweets are significatively longer than _POSITIVE_ tweets. In both classes, there are two modes : ~7 words and ~20 words.
+- _~7 words_ and _~20 words_ :
 
 ![Text word count distribution](img/dataset_text-word-count-distribution.png "Text word count distribution")
 
 #### Words importance
 
-After cleanig the text (lowercase, stopwords, [SpaCy lemmatization]), we can see the most common words ([Tf-Idf] weighted) in the dataset :
+Let's see what words are most **important** in the _text_ variable.
+
+After cleanig the text (lowercase, stopwords, [SpaCy lemmatization]), we can see the most **common words** ([Tf-Idf] weighted) in the dataset :
 
 ![Text word count distribution](img/dataset_text_words-importance.png "Text word count distribution")
 
 #### Topic modeling
 
+Let's see what **topics** (group of words frequently found together) are **important** in the _text_ variable.
+
 Running a [LSA] on the cleaned text, we can identify **topics** :
 
 ![Topics](img/dataset_text_topics.png "Topics")
 
-Running a simple [Logistic Regression] on the dataset, we can measure the **importance** of each topic towards the target variable :
+Running a simple [Logistic Regression], we can measure the **importance** of each topic towards the target variable :
 
 ![Topics importance](img/dataset_text_topics-importance.png "Topics importance")
 
@@ -118,32 +134,32 @@ We are going to split our dataset into a _train_ and a _test_ datasets, and comp
 
 ## AI as a Service
 
-Complete code available in [3_azure_sentiment_analysis.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/3_azure_sentiment_analysis.html)
+_Complete code available in [3_azure_sentiment_analysis.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/3_azure_sentiment_analysis.html)_
 
-In this section, we are going to evaluate Azure's [AIaaS] fully-managed cloud service : [Azure Cognitive Services - Sentiment Analysis API].
+In this section, we are going to evaluate Azure's [AIaaS] _fully-managed cloud service_ : [Azure Cognitive Services - Sentiment Analysis API].
 
-Before using Azure's Sentiment Analysis API, you need to create a Language resource with the standard (S) pricing tier, as explained in the [Quickstart: Sentiment analysis and opinion mining].
+Before using Azure's _Sentiment Analysis API_, we need to create a _Language_ resource with the standard (S) pricing tier, as explained in the [Quickstart: Sentiment analysis and opinion mining].
 
 ### Data preparation
 
-Using a Azure's Sentiment Analysis API does not require any data preparation.
-You just need to send the text you want to analyze to the API, and it will return the most likely sentiment label (_POSITIVE_, _NEGATIVE_ or _NEUTRAL_), as well as confidence scores for each label.
+Using a Azure's _Sentiment Analysis API_ does not require any data preparation.
+We just need to send the _text_ we want to analyze to the API, and it will return the most likely sentiment label (_POSITIVE_, _NEGATIVE_ or _NEUTRAL_), as well as confidence scores for each label.
 
 ### Model selection
 
-Azure's fully managed Cognitive Service is a black box. It uses Microsoft's best AI models to perform the analysis, but we have no control over it.
+Azure's fully managed Cognitive Service is a _black box_. It uses **Microsoft's best AI models** to perform the analysis, but we have no control over it.
 
 The best information we can get is from Azure's documentation, especially [Transparency note for Sentiment Analysis].
 
 ### Model training
 
-The underlying model is pre-trained and we can't train or fine-tune it ourselves.
+The underlying model is **pre-trained** and we can't train or fine-tune it ourselves.
 
 ### Classification results
 
 ![AIaaS results](img/aiaas_results.png "AIaaS results")
 
-We ony tested the model on (only) 10,000 tweets in order to limit the cost of this experiment.
+We ony tested the model on 10,000 tweets in order to limit the cost of this experiment.
 
 - **Accuracy** : 0.714400
 - **F1** : 0.729135
@@ -172,27 +188,27 @@ We ony tested the model on (only) 10,000 tweets in order to limit the cost of th
 
 ## Automated ML
 
-Complete code available in [6_azureml_automated_ml.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/6_azureml_automated_ml.html)
+_Complete code available in [6_azureml_automated_ml.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/6_azureml_automated_ml.html)_
 
 In this section, we are going to evaluate AzureML Studio's [Automated ML].
 
-Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio].
+Before using the service, we need to create a [Workspace], as explained in the [Tutorial: Train a classification model with no-code AutoML in the Azure Machine Learning studio].
 
 ### Data preparation
 
-Using a Azure's Automated ML service does not require any data preparation.
+Using a Azure's _Automated ML_ service does not require any data preparation.
 The data has just to be imported in the _Workspace_ as a [Dataset].
 
 ### Model selection
 
 This where the magic actually happens.
 
-The Automated ML service will automatically build, train and optimize hyper-parameters of many [Feature Engineering] methods and _classification models_.
+The _Automated ML_ service will **automatically** build, train and optimize hyper-parameters of many [Feature Engineering] methods and _classification models_.
 
 For this experiment, we chose to use the following options :
 
 - _Deep Learning Featurization_ : **Enabled** (requires GPU capability)
-  - this option is specific to text pre-processing and will integrate a BERT model to extract the embeddings of the words in the text (cf. [BERT integration in automated ML])
+  - this option is specific to text pre-processing and will integrate a _BERT_ model to extract the embeddings of the words in the text (cf. [BERT integration in automated ML])
 - _Primary metric_ : **AUC weighted**
 - _Training job time (hours)_ : **10 hours** (in order to limit the cost of this experiment)
 
@@ -206,7 +222,7 @@ The service has tested and compared multiple algorithms before selecting the bes
 
 ![AzureML - AutomatedML - 10h on GPU - models](img/azureml_automated_ml_10h_gpu_models.png "AzureML - AutomatedML - 10h on GPU - models")
 
-The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model :
+The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned _BERT_ model :
 
 ![Best Model](img/azureml_automated_ml_10h_gpu_best_model.png "Best Model")
 
@@ -226,7 +242,7 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 
 - the classification results are very good
 - the model is very well balanced
-- the model is actually fitted to our domain data
+- the model is actually fitted to the domain data
 - no Data Science or Machine Learning experience required, but you must be familiar with using cloud services
 - limited cost : once the best model has been identified, re-training it can be quite fast and in-expensive
 
@@ -237,11 +253,11 @@ The best model is a [LightGBM] with [MaxAbsScaler], with a fine-tuned BERT model
 
 ## Designer
 
-Complete code available in [7_azureml_designer.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/7_azureml_designer.html)
+_Complete code available in [7_azureml_designer.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/7_azureml_designer.html)_
 
 In this section, we are going to evaluate AzureML Studio's [Designer].
 
-Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Designer - train a no-code regression model].
+Before using the service, we need to create a [Workspace], as explained in the [Tutorial: Designer - train a no-code regression model].
 
 This is what our pipeline looks like :
 
@@ -249,7 +265,7 @@ This is what our pipeline looks like :
 
 ### Data preparation
 
-Using the Designer's UI, we created multiple data pre-processing steps :
+Using the _Designer_'s UI, we created multiple data pre-processing steps :
 
 - [Edit Metadata] : columns renaming
 - [Partition and Sample] : data sampling to reduce the dataset size
@@ -290,8 +306,8 @@ We can see that the **N-Gram Features** model performs better than the **Feature
 - **Average Precision** : 0.723
 - **ROC AUC** : 0.811
 
-The results here are not really relevant to our post, since we didn't design a very performant model.
-The goal was to demonstrate the use of the Designer's UI.
+The results here are not really relevant to our article, since we didn't design a very performant model.
+The goal was to demonstrate the use of the _Designer_'s UI.
 
 We could have improved the results by :
 
@@ -306,7 +322,7 @@ We could have improved the results by :
 
 ### Pros
 
-- the model is actually fitted to our domain data
+- the model is actually fitted to the domain data
 - the results of each steps are cached to be reused in a future run (if the previous steps are unchanged)
   - this accelerates next runs and saves on compute time/money
 - it is possible to view (part of) the results of each step after a run
@@ -322,25 +338,25 @@ We could have improved the results by :
 
 ## Notebooks
 
-Complete code available in [9_azureml_notebooks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks.html)
+_Complete code available in [9_azureml_notebooks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks.html)_
 
 In this section, we are going to evaluate AzureML Studio's [Notebooks].
 
-Before using the service, you need to create a [Workspace], as explained in the [Tutorial: Train and deploy an image classification model with an example Jupyter Notebook].
+Before using the service, we need to create a [Workspace], as explained in the [Tutorial: Train and deploy an image classification model with an example Jupyter Notebook].
 
-In this experiment, we will build, train, deploy and test a custom Deep Neural Network (DNN) to expose a REST API for our tweets sentiment prediction.
+In this experiment, we will build, train, deploy and test a custom _Deep Neural Network (DNN)_ to expose a _REST API_ for our tweets sentiment prediction.
 
 The code deployed in the Notebooks environment consists of :
 
 - [main.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/main.html) : this is the main Notebook where our data is prepared, our model is built, trained, deployed and tested
   - **Prepare** : prepare the data for our model
   - **Train** : we use the best model from [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) : _Stacked Bidirectional-LSTM layers on Embedded text_
-  - **Deploy** : we deploy the model in an ACI (Azure Compute Instance), which will expose a REST API to query our model for inference
-  - **Test** : we run a POST query to check that our model works
+  - **Deploy** : we deploy the model in an _ACI (Azure Compute Instance)_, which will expose a _REST API_ to query our model for inference
+  - **Test** : we run a `POST` query to check that our model works
 - [score.py](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/notebooks/9_azureml_notebooks/score.py) : this is the code deployed in the ACI for inference
   - `init()` : load the registered model
-  - `run(raw_data)` : process data sent to the REST API and predict the sentiment with the loaded model
-- [conda_dependencies.yml](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/notebooks/9_azureml_notebooks/conda_dependencies.yml) : this defines the dependencies that must be installed in the Inference environment
+  - `run(raw_data)` : process data sent to the _REST API_ and predict the sentiment with the loaded model
+- [conda_dependencies.yml](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/notebooks/9_azureml_notebooks/conda_dependencies.yml) : this defines the dependencies that must be installed in the _Inference_ environment
 
 This is what our model looks like :
 
@@ -356,7 +372,7 @@ This part is implemented in the [main.ipynb](https://fleuryc.github.io/OC_AI-Eng
 ### Model selection
 
 In this experiment, we don't do any model selection.
-The selected model is the best of several Artificial Neural Network (ANN) models compared in the [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) notebook.
+The selected model is the best of several _Artificial Neural Network (ANN)_ models compared in the [8_keras_neural_networks.ipynb](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/9_azureml_notebooks/8_keras_neural_networks.html) notebook.
 
 ### Model training
 
@@ -369,7 +385,7 @@ This allows to view the metrics evolution during training epochs in AzureML Stud
 
 ### Model deployment
 
-Once trained, registering our model in our _Workspace_ with _MLflow_ also allows us to easily deploy our model as a REST API in Azure (cf. [Deploy MLflow models as Azure web services])
+Once trained, registering our model in our _Workspace_ with _MLflow_ also allows us to easily deploy our model as a _REST API_ in Azure (cf. [Deploy MLflow models as Azure web services])
 
 To achieve that, we use `azureml` library to :
 
@@ -395,12 +411,12 @@ The performances of this model are computed in the [8_keras_neural_networks.ipyn
 - **Average Precision** : 0.910
 - **ROC AUC** : 0.910
 
-The results here are not really relevant to our post, even if they are quite good.
-The goal was to demonstrate the use of AzureML Notebooks and how to deploy a model in production.
+The results here are not really relevant to our article, even if they are quite good.
+The goal was to demonstrate the use of _AzureML Notebooks_ and how to deploy a model in production.
 
 ### Pros
 
-- the model is actually fitted to our domain data
+- the model is actually fitted to the domain data
 - you can easily version your code, and a peer can easily review it
 - it is possible to view the metrics evolution during training
 - this method offers the same flexibility, control and developer experience as coding in JupyterLab, with the addition :
@@ -415,6 +431,8 @@ The goal was to demonstrate the use of AzureML Notebooks and how to deploy a mod
 
 ## Conclusion
 
+In our context, the best course of actions was to use _Automated ML_ to build a very efficient model, and deploy it in production with _AzureML Notebooks_.
+
 In this article, we have seen :
 
 - how to very easily **set-up an AI serice** using _Azure Cognitive Services_ with zero techical knowlege
@@ -425,7 +443,6 @@ In this article, we have seen :
 Each AzureML service has its own purpose and offers more or less simplicity at the cost of control over the model.
 
 [nlp]: https://en.wikipedia.org/wiki/Natural_language_processing "Natural Language Processing"
-[pr]: https://en.wikipedia.org/wiki/Public_relations "Public Relations"
 [kaggle - sentiment140]: https://www.kaggle.com/kazanova/sentiment140 "dataset with 1.6 million tweets nad their sentiment"
 [eda]: https://en.wikipedia.org/wiki/Exploratory_data_analysis "Exploratory Data Analysis"
 [binary classification metrics]: https://towardsdatascience.com/the-ultimate-guide-to-binary-classification-metrics-c25c3627dd0a "Binary classification metrics"
@@ -471,7 +488,7 @@ Each AzureML service has its own purpose and offers more or less simplicity at t
 [environment]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-environments "What are Azure Machine Learning environments?"
 [aci]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance "Deploy a model to Azure Container Instances"
 [deploy machine learning models to azure]: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-and-where "Deploy machine learning models to Azure"
-[github]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
+[air paradis : detect bad buzz with deep learning]: https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning "Air Paradis : Detect bad buzz with deep learning"
 [spacy lemmatization]: https://spacy.io/usage/linguistic-features#lemmatization "SpaCy lemmatization"
 [tf-idf]: https://en.wikipedia.org/wiki/Tf%E2%80%93idf "Term frequency - Inverse document frequency"
 [lsa]: https://en.wikipedia.org/wiki/Latent_semantic_analysis "Latent semantic analysis"
