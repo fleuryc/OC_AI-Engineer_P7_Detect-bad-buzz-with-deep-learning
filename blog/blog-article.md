@@ -5,6 +5,8 @@ To achieve this, you would need to be able to detect _NEGATIVE_ messages on the 
 
 _Sentiment Analysis_ is one of the most classic [NLP] problems : **Given a piece of text, would you say its rather _POSITIVE_ or _NEGATIVE_ ?**
 
+![Sentiment Analysis](img/mark-daynes-J6p8nfCEuS4-unsplash.jpg "Sentiment Analysis")
+
 It seems almost natural to a human mind to classify simple sentences :
 
 > "I love my friends because they make me happy everyday!" 👍
@@ -13,7 +15,7 @@ It seems almost natural to a human mind to classify simple sentences :
 
 But not all sentences are so "simple".
 
-> "OMG XD ! New LP soooooo sick!" 🤔
+> "OMG this is soooooooo sick ! Shut up and take my money XD" 🤔
 
 There are multiple challenges that can make this task much more difficult :
 
