@@ -24,7 +24,7 @@ Goal : use Azure ML and NLP techniques (Gensim, Bert, Keras, ...), to perform se
 You can see the results here :
 
 -   [Presentation](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/index.html)
--   [Blog Article : Comparing Azure Tools for Sentiment Analysis](https://github.com/fleuryc/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blob/main/blog/blog-article.md "Comparing Azure Tools for Sentiment Analysis")
+-   [Blog Article : Comparing Azure Tools for Sentiment Analysis](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/blog-article.html "Comparing Azure Tools for Sentiment Analysis")
 -   [Notebook : HTML page with interactive plots](https://fleuryc.github.io/OC_AI-Engineer_P7_Detect-bad-buzz-with-deep-learning/notebook.html "HTML page with interactive plots")
 
 ## Installation
